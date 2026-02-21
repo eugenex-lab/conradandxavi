@@ -1,15 +1,19 @@
-
-import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import PracticePage from './pages/PracticePage';
-import TeamPage from './pages/TeamPage';
-import ContactPage from './pages/ContactPage';
-import BlogPage from './pages/BlogPage';
-import WhatsAppFAB from './components/WhatsAppFAB';
+import React, { useState, useEffect } from "react";
+import {
+  HashRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import PracticePage from "./pages/PracticePage";
+import TeamPage from "./pages/TeamPage";
+import ContactPage from "./pages/ContactPage";
+import BlogPage from "./pages/BlogPage";
+import WhatsAppFAB from "./components/WhatsAppFAB";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -24,9 +28,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     if (isDarkMode) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [isDarkMode]);
 
@@ -35,9 +39,11 @@ const App: React.FC = () => {
   return (
     <Router>
       <ScrollToTop />
-      <div className={`min-h-screen flex flex-col ${isDarkMode ? 'dark:bg-navy-dark dark:text-white' : 'bg-white text-navy'}`}>
+      <div
+        className={`min-h-screen flex flex-col ${isDarkMode ? "dark:bg-navy-dark dark:text-white" : "bg-white text-navy"}`}
+      >
         <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-        <main className="flex-grow pt-20">
+        <main className="flex-grow pt-[80px]">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
