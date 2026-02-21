@@ -16,7 +16,8 @@ const HeroMediaSlider: React.FC = () => {
   const images = [
     "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=1200",
     "/images/hero_1.png",
-    "/images/hero_2.png",
+    "/images/legal_hero_3.png",
+    "/images/legal_hero_4.png",
     "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200",
   ];
 
@@ -48,7 +49,8 @@ const HeroMediaSlider: React.FC = () => {
 const FullBackgroundSlider: React.FC = () => {
   const images = [
     "/images/hero_1.png",
-    "/images/hero_2.png",
+    "/images/legal_hero_3.png",
+    "/images/legal_hero_4.png",
     "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000",
     "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000",
   ];
