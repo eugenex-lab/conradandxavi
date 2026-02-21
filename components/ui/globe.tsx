@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Globe from "react-globe.gl";
+import * as THREE from "three";
 
 export function World({
   globeConfig,
@@ -14,6 +15,18 @@ export function World({
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [landPolygons, setLandPolygons] = useState<any[]>([]);
+
+  // Create a real ThreeJS material with the requested globe color.
+  // This is the ONLY reliable way to set a solid globe surface color in react-globe.gl.
+  const globeMaterial = useMemo(() => {
+    const color = globeConfig.globeColor || "#000b43";
+    const mat = new THREE.MeshPhongMaterial();
+    mat.color = new THREE.Color(color);
+    mat.emissive = new THREE.Color(color);
+    mat.emissiveIntensity = 0.1;
+    mat.shininess = 0.9;
+    return mat;
+  }, [globeConfig.globeColor]);
 
   useEffect(() => {
     // Fetch GeoJSON map data to create the "dotted/hex" github globe material effect
@@ -58,10 +71,10 @@ export function World({
         if (controls) {
           controls.autoRotate = globeConfig.autoRotate || false;
           controls.autoRotateSpeed = globeConfig.autoRotateSpeed || 0.5;
-          controls.enableZoom = false; // Mobile-friendly: block scrolling/zooming inside
+          controls.enableZoom = false;
         }
       }
-    }, 100);
+    }, 300);
 
     return () => window.removeEventListener("resize", handleResize);
   }, [globeConfig]);
@@ -77,16 +90,15 @@ export function World({
           width={dimensions.width}
           height={dimensions.height}
           showGlobe={true}
-          globeColor={globeConfig.globeColor || "#062056"}
+          globeMaterial={globeMaterial}
           backgroundColor="rgba(0,0,0,0)"
-          // Render the landmasses as a hex grid matching the Github/Aceternity style
+          // Render the landmasses as a hex grid
           hexPolygonsData={landPolygons}
           hexPolygonResolution={3}
           hexPolygonMargin={0.7}
           hexPolygonColor={(d: any) => {
-            // Apply gold to Nigeria and the config's polygon color for everything else
             if (d.properties.ISO_A2 === "NG") {
-              return "#d4af37"; // Solid Gold dots for Nigeria
+              return "#d4af37"; // Solid Gold for Nigeria
             }
             return globeConfig.polygonColor || "rgba(255, 255, 255, 0.7)";
           }}
@@ -104,12 +116,9 @@ export function World({
           arcsTransitionDuration={0}
           atmosphereColor={globeConfig.atmosphereColor || "#FFFFFF"}
           atmosphereAltitude={globeConfig.atmosphereAltitude || 0.1}
-          // Lighting
-          ambientLight={globeConfig.ambientLight || "#ffffff"}
-          directionalTopLight={globeConfig.directionalTopLight || "#ffffff"}
-          // Custom HTML Pins for Offices
+          // HTML Pins for Offices
           htmlElementsData={pinsData}
-          htmlAltitude={0.01} // Closer to the surface to intersect the hex polygons
+          htmlAltitude={0.01}
           htmlElement={(d: any) => {
             const el = document.createElement("div");
             el.innerHTML = `

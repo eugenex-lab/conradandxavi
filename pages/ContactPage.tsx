@@ -59,15 +59,15 @@ const ContactPage: React.FC = () => {
 
   const globeConfig = {
     pointSize: 4,
-    globeColor: "#062056",
+    globeColor: "#000b43", // The requested deep vibrant blue base
     showAtmosphere: true,
-    atmosphereColor: "#FFFFFF",
+    atmosphereColor: "#d4af37", // Gold atmosphere
     atmosphereAltitude: 0.1,
-    emissive: "#062056",
-    emissiveIntensity: 0.1,
+    emissive: "#000b43",
+    emissiveIntensity: 0.5, // High intensity to make the dark blue "glow" and look blue rather than black
     shininess: 0.9,
-    polygonColor: "rgba(255,255,255,0.7)",
-    ambientLight: "#38bdf8",
+    polygonColor: "rgba(255, 255, 255, 0.7)", // Contrast dots
+    ambientLight: "#ffffff",
     directionalLeftLight: "#ffffff",
     directionalTopLight: "#ffffff",
     pointLight: "#ffffff",
@@ -80,7 +80,7 @@ const ContactPage: React.FC = () => {
     autoRotateSpeed: 1.5, // Faster rotation
   };
 
-  const colors = ["#d4af37", "#f5f5dc", "#ffffff"]; // Gold, Beige, White to match theme
+  const colors = ["#d4af37", "#3b82f6", "#ffffff"]; // Gold, Blue, White
 
   const sampleArcs = [
     {
