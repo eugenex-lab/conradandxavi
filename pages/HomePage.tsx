@@ -177,8 +177,18 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Services Highlights - Premium Interactive Cards */}
-      <section className="py-32 bg-transparent border-t border-navy/5 dark:border-white/5 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 animate-fade-in-up">
+      <section className="relative py-32 bg-transparent border-t border-navy/5 dark:border-white/5 overflow-hidden">
+        {/* Cinematic Courtroom Background - Enhanced Pop */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=2000"
+            alt="Courtroom"
+            className="w-full h-full object-cover opacity-[0.15] contrast-125 brightness-75 sepia-[0.3] mix-blend-multiply dark:mix-blend-screen transition-all duration-1000"
+          />
+          <div className="absolute inset-0 bg-gradient-to-tr from-navy/20 via-gold/5 to-transparent"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 animate-fade-in-up relative z-10">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="max-w-2xl">
               <span className="text-gold font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">
@@ -196,60 +206,77 @@ const HomePage: React.FC = () => {
           </div>
         </div>
 
-        {/* Single Row Infinite Slider */}
-        <div className="flex overflow-hidden group/marquee">
-          <div className="flex space-x-8 animate-scroll-left px-4 sm:px-12 lg:px-20">
-            {[...PRACTICE_AREAS, ...PRACTICE_AREAS].map((area, idx) => (
+        {/* Premium Grid Layout - Apple & Stripe Inspired */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-navy/10 dark:border-white/10 rounded-2xl overflow-hidden bg-white/30 dark:bg-navy/30 backdrop-blur-xl shadow-2xl">
+            {PRACTICE_AREAS.slice(0, 3).map((area, idx) => (
               <div
-                key={`${area.id}-${idx}`}
-                className="relative flex-shrink-0 w-[380px] md:w-[450px] bg-white/40 dark:bg-navy/40 backdrop-blur-md p-10 md:p-14 group overflow-hidden border border-white/20 dark:border-white/10 hover-float"
+                key={area.id}
+                className={`relative p-10 md:p-14 group transition-all duration-700 hover:bg-white/50 dark:hover:bg-white/5 border-navy/5 dark:border-white/5 ${
+                  idx === 0 ? "lg:border-r" : idx === 1 ? "lg:border-r" : ""
+                } ${idx < 2 ? "border-b lg:border-b-0" : "border-b md:border-b-0"}`}
               >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full -mr-16 -mt-16 group-hover:scale-[10] group-hover:bg-navy transition-transform duration-1000 ease-in-out"></div>
-                <div className="relative z-10 transition-colors duration-500 group-hover:text-white">
-                  <div className="text-[10px] font-bold text-gold mb-8 uppercase tracking-[0.4em] flex items-center">
-                    <span className="w-10 h-[1px] bg-gold/30 mr-4 group-hover:bg-white/30 transition-all"></span>
-                    0{(idx % PRACTICE_AREAS.length) + 1}
-                  </div>
-                  <h3 className="text-3xl font-serif font-medium mb-6 group-hover:text-white transition-colors">
+                {/* Minimalist Numbering */}
+                <div className="flex items-center space-x-4 mb-12">
+                  <span className="text-3xl font-serif italic text-gold/30 group-hover:text-gold transition-colors duration-500">
+                    {idx === 0 ? "" : `0${idx}`}
+                  </span>
+                  <div className="h-[1px] w-12 bg-gold/20 group-hover:w-20 group-hover:bg-gold transition-all duration-700"></div>
+                </div>
+
+                <div className="relative z-10 transition-transform duration-700 group-hover:-translate-y-2">
+                  <h3 className="text-3xl md:text-4xl font-serif font-medium mb-8 dark:text-white leading-tight">
                     {area.title}
                   </h3>
-                  <p className="text-navy/60 dark:text-gray-400 group-hover:text-white/70 mb-10 font-light leading-relaxed">
+                  <p className="text-navy/60 dark:text-gray-400 mb-12 font-light leading-relaxed text-lg">
                     {area.description}
                   </p>
+
                   <Link
                     to="/practice"
-                    className="inline-flex items-center text-gold font-bold text-[10px] uppercase tracking-widest group-hover:text-white transition-all"
+                    className="inline-flex items-center group/btn"
                   >
-                    <span className="border-b border-gold/30 pb-1 mr-2">
+                    <span className="text-gold font-bold text-[10px] uppercase tracking-[0.3em] border-b border-gold/0 group-hover/btn:border-gold/100 pb-2 transition-all duration-500">
                       Explore Excellence
                     </span>
-                    <ArrowRight
-                      className="transition-transform group-hover:translate-x-2"
-                      size={14}
-                    />
+                    <div className="ml-4 w-10 h-10 rounded-full border border-gold/10 flex items-center justify-center group-hover/btn:bg-gold group-hover/btn:text-navy transition-all duration-500">
+                      <MoveUpRight size={16} />
+                    </div>
                   </Link>
                 </div>
+
+                {/* Subtle Geometric Background Element */}
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gold/5 rounded-tl-full translate-x-16 translate-y-16 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-1000 ease-out"></div>
               </div>
             ))}
 
-            {/* Seeking Global Partners - Highlight Slider Card */}
-            <div className="relative flex-shrink-0 w-[450px] bg-navy/80 p-10 md:p-14 flex flex-col justify-between items-start overflow-hidden group shadow-2xl hover-float backdrop-blur-lg">
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/20 via-transparent to-navy/40"></div>
-              <div className="relative z-10 text-white">
-                <div className="w-14 h-14 rounded-full border border-gold/40 flex items-center justify-center mb-10 group-hover:bg-gold group-hover:text-navy transition-all duration-500">
-                  <MoveUpRight size={22} />
+            {/* Featured Global Partners Card - Styled for High Conversion */}
+            <div className="md:col-span-2 lg:col-span-3 bg-navy text-white p-12 md:p-20 relative overflow-hidden group">
+              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000')] opacity-10 grayscale group-hover:scale-110 transition-transform duration-[3s]"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-transparent"></div>
+
+              <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+                <div className="max-w-2xl text-center lg:text-left">
+                  <span className="text-gold font-bold text-[10px] uppercase tracking-[0.5em] mb-6 block">
+                    Strategic Collaboration
+                  </span>
+                  <h3 className="text-4xl md:text-6xl font-serif font-medium mb-8 leading-tight">
+                    Seeking Global{" "}
+                    <span className="italic text-gold">Partners?</span>
+                  </h3>
+                  <p className="text-white/60 text-lg font-light leading-relaxed mb-0">
+                    Our desk is open for strategic international collaborations,
+                    cross-border advisory, and institutional legal support.
+                  </p>
                 </div>
-                <h3 className="text-4xl font-serif font-bold mb-6 leading-tight">
-                  Seeking Global <br />
-                  <span className="italic text-gold">Partners?</span>
-                </h3>
-                <p className="text-white/60 text-sm font-light leading-relaxed mb-10">
-                  Our desk is open for strategic international collaborations
-                  and cross-border advisory.
-                </p>
-                <button className="bg-gold text-navy px-10 py-5 text-[10px] font-bold uppercase tracking-widest hover:bg-white transition-all">
-                  Connect Locally
-                </button>
+
+                <Link
+                  to="/contact"
+                  className="bg-gold text-navy px-12 py-8 text-[10px] font-bold uppercase tracking-[0.4em] hover:bg-white transition-all duration-500 shadow-2xl flex items-center space-x-6 shrink-0"
+                >
+                  <span>Inquire Locally</span>
+                  <ArrowRight size={18} />
+                </Link>
               </div>
             </div>
           </div>

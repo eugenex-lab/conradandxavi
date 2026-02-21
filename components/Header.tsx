@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'py-4 glass border-b border-navy/5' : 'py-8 bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 lg:px-20">
+      <div className="max-w-7xl mx-auto px-6">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex flex-col group">
             <span className={`text-xl font-bold tracking-tighter transition-colors ${scrolled || isDarkMode ? 'text-navy dark:text-white' : 'text-navy'}`}>
@@ -53,7 +53,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
                 {link.name}
               </Link>
             ))}
-            <div className="w-[1px] h-4 bg-navy/10 dark:bg-white/10 mx-2"></div>
+            <div className="w-[1px] h-4 bg-transparent mx-2"></div>
             <button
               onClick={toggleDarkMode}
               className="p-1 text-navy/40 dark:text-white/40 hover:text-gold transition-colors"

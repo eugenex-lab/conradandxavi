@@ -142,6 +142,19 @@
         }
       }
 
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+
       .hover-float {
         transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
       }
@@ -224,7 +237,7 @@
                 light: "#003366",
               },
               gold: {
-                DEFAULT: "#C5A021",
+                DEFAULT: "#ae9862",
                 dark: "#A6861B",
                 light: "#E2C361",
               },
