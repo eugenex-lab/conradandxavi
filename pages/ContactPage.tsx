@@ -13,6 +13,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { World } from "../components/ui/globe";
 
 const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -56,30 +57,205 @@ const ContactPage: React.FC = () => {
     setTimeout(() => setSubmitted(false), 5000);
   };
 
+  const globeConfig = {
+    pointSize: 4,
+    globeColor: "#062056",
+    showAtmosphere: true,
+    atmosphereColor: "#FFFFFF",
+    atmosphereAltitude: 0.1,
+    emissive: "#062056",
+    emissiveIntensity: 0.1,
+    shininess: 0.9,
+    polygonColor: "rgba(255,255,255,0.7)",
+    ambientLight: "#38bdf8",
+    directionalLeftLight: "#ffffff",
+    directionalTopLight: "#ffffff",
+    pointLight: "#ffffff",
+    arcTime: 1000,
+    arcLength: 0.9,
+    rings: 1,
+    maxRings: 3,
+    initialPosition: { lat: 9.082, lng: 8.6753 }, // Set focus to Nigeria/Africa
+    autoRotate: true,
+    autoRotateSpeed: 1.5, // Faster rotation
+  };
+
+  const colors = ["#d4af37", "#f5f5dc", "#ffffff"]; // Gold, Beige, White to match theme
+
+  const sampleArcs = [
+    {
+      order: 1,
+      startLat: -19.885592,
+      startLng: -43.951191,
+      endLat: -22.9068,
+      endLng: -43.1729,
+      arcAlt: 0.1,
+      color: colors[0],
+    },
+    {
+      order: 1,
+      startLat: 28.6139,
+      startLng: 77.209,
+      endLat: 3.139,
+      endLng: 101.6869,
+      arcAlt: 0.2,
+      color: colors[1],
+    },
+    {
+      order: 1,
+      startLat: -19.885592,
+      startLng: -43.951191,
+      endLat: -1.303396,
+      endLng: 36.852443,
+      arcAlt: 0.5,
+      color: colors[2],
+    },
+    {
+      order: 2,
+      startLat: 1.3521,
+      startLng: 103.8198,
+      endLat: 35.6762,
+      endLng: 139.6503,
+      arcAlt: 0.2,
+      color: colors[0],
+    },
+    {
+      order: 2,
+      startLat: 51.5072,
+      startLng: -0.1276,
+      endLat: 3.139,
+      endLng: 101.6869,
+      arcAlt: 0.3,
+      color: colors[1],
+    },
+    {
+      order: 2,
+      startLat: -15.785493,
+      startLng: -47.909029,
+      endLat: 36.162809,
+      endLng: -115.119411,
+      arcAlt: 0.3,
+      color: colors[2],
+    },
+    {
+      order: 3,
+      startLat: -33.8688,
+      startLng: 151.2093,
+      endLat: 22.3193,
+      endLng: 114.1694,
+      arcAlt: 0.3,
+      color: colors[0],
+    },
+    {
+      order: 3,
+      startLat: 11.986597,
+      startLng: 8.571831,
+      endLat: -15.595412,
+      endLng: -56.05918,
+      arcAlt: 0.5,
+      color: colors[1],
+    },
+    {
+      order: 4,
+      startLat: -34.6037,
+      startLng: -58.3816,
+      endLat: 22.3193,
+      endLng: 114.1694,
+      arcAlt: 0.7,
+      color: colors[2],
+    },
+    {
+      order: 5,
+      startLat: 14.5995,
+      startLng: 120.9842,
+      endLat: 51.5072,
+      endLng: -0.1276,
+      arcAlt: 0.3,
+      color: colors[0],
+    },
+    {
+      order: 6,
+      startLat: -15.432563,
+      startLng: 28.315853,
+      endLat: 1.094136,
+      endLng: -63.34546,
+      arcAlt: 0.7,
+      color: colors[1],
+    },
+    {
+      order: 7,
+      startLat: 48.8566,
+      startLng: -2.3522,
+      endLat: 52.52,
+      endLng: 13.405,
+      arcAlt: 0.1,
+      color: colors[2],
+    },
+  ];
+
+  const officePins = [
+    {
+      lat: 6.4883, // Ibeju Lekki
+      lng: 3.8436,
+      label: "11, Folgore Close, Adiva Plainfields Estate\nIbeju Lekki, Lagos",
+    },
+    {
+      lat: 6.45, // Ikoyi
+      lng: 3.4246,
+      label: "109B, Ilupeju Street, Dolphin Estate\nIkoyi, Lagos",
+    },
+  ];
+
+  const globalPoints = [
+    { id: 1, lat: 40.7128, lng: -74.006 }, // New York
+    { id: 2, lat: 48.8566, lng: 2.3522 }, // Paris
+    { id: 3, lat: 35.6762, lng: 139.6503 }, // Tokyo
+    { id: 4, lat: -33.8688, lng: 151.2093 }, // Sydney
+    { id: 5, lat: 1.3521, lng: 103.8198 }, // Singapore
+    { id: 6, lat: -23.5505, lng: -46.6333 }, // Sao Paulo
+    { id: 7, lat: 55.7558, lng: 37.6173 }, // Moscow
+    { id: 8, lat: 25.2048, lng: 55.2708 }, // Dubai
+  ];
+
   return (
     <div className="bg-beige dark:bg-navy-dark overflow-x-hidden">
-      {/* Premium Hero Header */}
-      <section className="pt-40 pb-24 px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto">
-        <div className="inline-flex items-center space-x-3 mb-8">
-          <span className="w-12 h-[1px] bg-gold"></span>
-          <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold text-glow">
-            Concierge Services
-          </span>
+      {/* Premium Hero Header with Globe */}
+      <section className=" pb-4 lg:pb-12 px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto overflow-visible relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-20 items-center">
+          <div className="z-20 relative order-2 lg:order-1 pt-0 lg:pt-0">
+            <div className="inline-flex items-center space-x-3 mb-8">
+              <span className="w-12 h-[1px] bg-gold"></span>
+              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-gold text-glow">
+                Concierge Services
+              </span>
+            </div>
+            <h1 className="text-5xl sm:text-7xl lg:text-[100px] font-serif font-medium leading-[0.95] text-navy dark:text-white mb-8">
+              Start Your <br />{" "}
+              <span className="italic text-gold">Briefing.</span>
+            </h1>
+            <p className="text-lg md:text-2xl text-navy/70 dark:text-gray-300 font-light max-w-xl leading-relaxed italic">
+              High-stakes legal counsel requires absolute discretion. Begin our
+              engagement through a confidential briefing.
+            </p>
+          </div>
+
+          <div className="order-1 lg:order-2 relative w-[300px] sm:w-[400px] lg:w-[600px] h-[300px] sm:h-[400px] lg:h-[600px] mx-auto scale-110 drop-shadow-2xl">
+            <div className="absolute inset-0 bg-gradient-to-t from-beige via-transparent to-transparent lg:hidden dark:from-navy-dark z-10 pointer-events-none w-full h-full bottom-0 left-0"></div>
+            <World
+              globeConfig={globeConfig}
+              data={sampleArcs}
+              pinsData={officePins}
+              pointsData={globalPoints}
+            />
+          </div>
         </div>
-        <h1 className="text-6xl md:text-[120px] font-serif font-medium leading-[0.85] dark:text-white mb-16">
-          Start Your <br /> <span className="italic text-gold">Briefing.</span>
-        </h1>
-        <p className="text-xl md:text-3xl text-navy/60 dark:text-gray-400 font-light max-w-2xl leading-relaxed italic">
-          High-stakes legal counsel requires absolute discretion. Begin our
-          engagement through a confidential briefing.
-        </p>
       </section>
 
       {/* Main Content Grid */}
       <section className="pb-40 px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 lg:gap-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-32">
           {/* Left Column: Contact Cards */}
-          <div className="lg:col-span-5 space-y-16">
+          <div className="lg:col-span-5 space-y-16 order-2 lg:order-1">
             {/* Office Locations */}
             <div className="space-y-12">
               {FIRM_INFO.addresses.map((addr, idx) => (
@@ -92,7 +268,7 @@ const ContactPage: React.FC = () => {
                       <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold mb-3">
                         Principal Office 0{idx + 1}
                       </h4>
-                      <p className="text-xl font-serif italic dark:text-white leading-relaxed">
+                      <p className="text-xl font-serif italic text-navy dark:text-white leading-relaxed">
                         {addr}
                       </p>
                     </div>
@@ -113,10 +289,10 @@ const ContactPage: React.FC = () => {
                   <Phone size={24} />
                 </div>
                 <div>
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400 mb-1">
                     Secure Line
                   </h4>
-                  <p className="text-2xl font-medium dark:text-white group-hover:text-gold transition-colors">
+                  <p className="text-2xl font-medium text-navy dark:text-white group-hover:text-gold transition-colors">
                     {FIRM_INFO.phones[0]}
                   </p>
                 </div>
@@ -130,10 +306,10 @@ const ContactPage: React.FC = () => {
                   <Mail size={24} />
                 </div>
                 <div>
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400 mb-1">
                     Confidential Email
                   </h4>
-                  <p className="text-2xl font-medium dark:text-white group-hover:text-gold transition-colors">
+                  <p className="text-2xl font-medium text-navy dark:text-white group-hover:text-gold transition-colors">
                     {FIRM_INFO.email}
                   </p>
                 </div>
@@ -144,10 +320,10 @@ const ContactPage: React.FC = () => {
                   <Clock size={24} />
                 </div>
                 <div>
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1">
+                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400 mb-1">
                     Advisory Hours
                   </h4>
-                  <p className="text-2xl font-medium dark:text-white">
+                  <p className="text-2xl font-medium text-navy dark:text-white">
                     Monday — Friday: 8 AM - 6 PM
                   </p>
                 </div>
@@ -188,8 +364,8 @@ const ContactPage: React.FC = () => {
           </div>
 
           {/* Right Column: Premium Briefing Form */}
-          <div className="lg:col-span-7">
-            <div className="bg-white dark:bg-navy-light/5 p-12 lg:p-24 shadow-3xl relative border border-navy/5 dark:border-white/5">
+          <div className="lg:col-span-6 order-1 lg:order-2">
+            <div className="bg-white dark:bg-navy-light/5 p-8 lg:p-24 shadow-3xl relative border border-navy/5 dark:border-white/5">
               {submitted ? (
                 <div className="flex flex-col items-center justify-center py-24 text-center animate-in fade-in zoom-in duration-700">
                   <div className="w-28 h-28 bg-gold rounded-full flex items-center justify-center mb-12 text-navy shadow-[0_0_30px_rgba(197,160,33,0.4)]">
@@ -210,7 +386,7 @@ const ContactPage: React.FC = () => {
                       <input
                         type="text"
                         required
-                        className="w-full bg-transparent border-b-2 border-navy/10 dark:border-white/10 py-6 focus:border-gold outline-none transition-all dark:text-white text-xl font-light placeholder:text-navy/20 dark:placeholder:text-white/20"
+                        className="w-full bg-transparent border-b-2 border-navy/10 dark:border-white/10 py-6 focus:border-gold outline-none transition-all text-navy dark:text-white text-xl font-light placeholder:text-navy/40 dark:placeholder:text-white/40"
                         placeholder="Full Legal Name"
                       />
                       <label className="absolute -top-8 left-0 text-[10px] font-bold uppercase tracking-[0.2em] text-gold opacity-0 group-focus-within:opacity-100 transition-opacity">
@@ -224,7 +400,7 @@ const ContactPage: React.FC = () => {
                         required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-transparent border-b-2 border-navy/10 dark:border-white/10 py-6 focus:border-gold outline-none transition-all dark:text-white text-xl font-light placeholder:text-navy/30 dark:placeholder:text-white/30 break-words"
+                        className="w-full bg-transparent border-b-2 border-navy/10 dark:border-white/10 py-6 focus:border-gold outline-none transition-all text-navy dark:text-white text-xl font-light placeholder:text-navy/40 dark:placeholder:text-white/40 break-words"
                         placeholder="Corporate Email"
                       />
                       <label className="absolute -top-8 left-0 text-[10px] font-bold uppercase tracking-[0.2em] text-gold opacity-0 group-focus-within:opacity-100 transition-opacity z-10">
@@ -236,7 +412,7 @@ const ContactPage: React.FC = () => {
                             initial={{ opacity: 0, y: -5 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -5 }}
-                            className="absolute -bottom-6 left-0 text-[10px] text-gold italic tracking-widest uppercase font-medium"
+                            className="absolute -bottom-10 left-0 text-[10px] text-gold italic tracking-widest uppercase font-medium"
                           >
                             We will reach out to you soon
                           </motion.p>
