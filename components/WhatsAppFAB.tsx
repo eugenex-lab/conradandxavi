@@ -1,12 +1,15 @@
-
-import React from 'react';
-import { MessageCircle } from 'lucide-react';
-import { FIRM_INFO } from '../constants';
+import React from "react";
+import { MessageCircle } from "lucide-react";
+import { FIRM_INFO } from "../constants";
 
 const WhatsAppFAB: React.FC = () => {
   const openWhatsApp = () => {
-    const phoneNumber = FIRM_INFO.phones[0].replace(/\s/g, '');
-    window.open(`https://wa.me/${phoneNumber}`, '_blank');
+    // Ensuring Nigerian country code if number starts with 0
+    let phoneNumber = FIRM_INFO.phones[0].replace(/\s/g, "");
+    if (phoneNumber.startsWith("0")) {
+      phoneNumber = "234" + phoneNumber.substring(1);
+    }
+    window.open(`https://wa.me/${phoneNumber}`, "_blank");
   };
 
   return (

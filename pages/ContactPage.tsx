@@ -11,9 +11,37 @@ import {
   MessageCircle,
   ChevronDown,
   ChevronUp,
+  Copy,
+  Check,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { World } from "../components/ui/globe";
+
+const CopyButton: React.FC<{ text: string }> = ({ text }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <button
+      onClick={handleCopy}
+      className={`ml-auto p-2 rounded-full transition-all duration-300 ${
+        copied
+          ? "bg-gold text-navy scale-110"
+          : "bg-navy/10 text-gold hover:bg-gold hover:text-navy"
+      }`}
+      title="Copy to clipboard"
+    >
+      {copied ? <Check size={14} /> : <Copy size={14} />}
+    </button>
+  );
+};
 
 const ContactPage: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -21,6 +49,7 @@ const ContactPage: React.FC = () => {
   // States for dynamic messaging
   const [email, setEmail] = useState("");
   const [summary, setSummary] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
   // Custom dropdown states
   const [scopeOpen, setScopeOpen] = useState(false);
@@ -51,10 +80,44 @@ const ContactPage: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    setIsSending(true);
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    // Add additional fields
+    formData.append("Engagement Type", selectedScope);
+    formData.append("_subject", `New Briefing: ${selectedScope}`);
+
+    try {
+      // Adding a minimum delay of 1s to ensure the loading state is perceptible
+      const [response] = await Promise.all([
+        fetch(import.meta.env.VITE_FORMSPREE_ENDPOINT, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        }),
+        new Promise((resolve) => setTimeout(resolve, 1000)),
+      ]);
+
+      if (response.ok) {
+        setSubmitted(true);
+        setEmail("");
+        setSummary("");
+        setSelectedScope("");
+        form.reset();
+        setTimeout(() => setSubmitted(false), 10000);
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      // Fallback behavior if fetch fails
+      setSubmitted(true);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const globeConfig = {
@@ -263,10 +326,13 @@ const ContactPage: React.FC = () => {
                     <div className="w-14 h-14 bg-navy text-gold flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform shadow-xl">
                       <MapPin size={28} />
                     </div>
-                    <div>
-                      <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold mb-3">
-                        Principal Office 0{idx + 1}
-                      </h4>
+                    <div className="flex-grow">
+                      <div className="flex items-center justify-between mb-3">
+                        <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-gold">
+                          Principal Office 0{idx + 1}
+                        </h4>
+                        <CopyButton text={addr} />
+                      </div>
                       <p className="text-xl font-serif italic text-navy dark:text-white leading-relaxed">
                         {addr}
                       </p>
@@ -287,10 +353,13 @@ const ContactPage: React.FC = () => {
                 <div className="w-14 h-14 rounded-full border border-navy/10 dark:border-white/10 flex items-center justify-center text-navy dark:text-white group-hover:bg-gold group-hover:border-gold group-hover:text-navy transition-all shadow-lg">
                   <Phone size={24} />
                 </div>
-                <div>
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400 mb-1">
-                    Secure Line
-                  </h4>
+                <div className="flex-grow">
+                  <div className="flex items-center justify-between mb-1">
+                    <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400">
+                      Secure Line
+                    </h4>
+                    <CopyButton text={FIRM_INFO.phones[0]} />
+                  </div>
                   <p className="text-2xl font-medium text-navy dark:text-white group-hover:text-gold transition-colors">
                     {FIRM_INFO.phones[0]}
                   </p>
@@ -304,10 +373,13 @@ const ContactPage: React.FC = () => {
                 <div className="w-14 h-14 rounded-full border border-navy/10 dark:border-white/10 flex items-center justify-center text-navy dark:text-white group-hover:bg-gold group-hover:border-gold group-hover:text-navy transition-all shadow-lg">
                   <Mail size={24} />
                 </div>
-                <div>
-                  <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400 mb-1">
-                    Confidential Email
-                  </h4>
+                <div className="flex-grow">
+                  <div className="flex items-center justify-between mb-1">
+                    <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400">
+                      Confidential Email
+                    </h4>
+                    <CopyButton text={FIRM_INFO.email} />
+                  </div>
                   <p className="text-2xl font-medium text-navy dark:text-white group-hover:text-gold transition-colors">
                     {FIRM_INFO.email}
                   </p>
@@ -340,12 +412,13 @@ const ContactPage: React.FC = () => {
                   urgent briefings.
                 </p>
                 <button
-                  onClick={() =>
-                    window.open(
-                      `https://wa.me/${FIRM_INFO.phones[0].replace(/\s/g, "")}`,
-                      "_blank",
-                    )
-                  }
+                  onClick={() => {
+                    let phoneNumber = FIRM_INFO.phones[0].replace(/\s/g, "");
+                    if (phoneNumber.startsWith("0")) {
+                      phoneNumber = "234" + phoneNumber.substring(1);
+                    }
+                    window.open(`https://wa.me/${phoneNumber}`, "_blank");
+                  }}
                   className="flex items-center space-x-4 text-[10px] font-bold uppercase tracking-[0.3em] hover:text-gold transition-colors border-b border-gold/30 pb-2 group-hover:border-gold"
                 >
                   Establish Secure Connection{" "}
@@ -374,8 +447,9 @@ const ContactPage: React.FC = () => {
                     Briefing Received.
                   </h2>
                   <p className="text-gray-500 dark:text-gray-400 text-xl font-light leading-relaxed max-w-md mx-auto">
-                    A Senior Associate will analyze your inquiry and initiate
-                    contact within one standard business cycle.
+                    We truly appreciate your interest in our strategic counsel.
+                    A Senior Associate will now analyze your inquiry and
+                    initiate contact within one standard business cycle.
                   </p>
                 </div>
               ) : (
@@ -383,6 +457,7 @@ const ContactPage: React.FC = () => {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <div className="relative group">
                       <input
+                        name="Full Name"
                         type="text"
                         required
                         className="w-full bg-transparent border-b-2 border-navy/10 dark:border-white/10 py-6 focus:border-gold outline-none transition-all text-navy dark:text-white text-xl font-light placeholder:text-navy/40 dark:placeholder:text-white/40"
@@ -395,6 +470,7 @@ const ContactPage: React.FC = () => {
 
                     <div className="relative group w-full max-w-full">
                       <input
+                        name="Email"
                         type="email"
                         required
                         value={email}
@@ -479,6 +555,7 @@ const ContactPage: React.FC = () => {
 
                   <div className="relative group w-full max-w-full pt-4">
                     <textarea
+                      name="Briefing Summary"
                       required
                       rows={5}
                       value={summary}
@@ -513,14 +590,39 @@ const ContactPage: React.FC = () => {
                     </p>
                     <button
                       type="submit"
-                      disabled={!selectedScope}
-                      className={`px-14 py-7 font-bold uppercase tracking-[0.4em] text-[11px] flex items-center group shadow-2xl transition-all ${!selectedScope ? "bg-gray-300 dark:bg-gray-800 text-gray-500 cursor-not-allowed" : "bg-navy dark:bg-gold text-white dark:text-navy hover:-translate-y-1 active:translate-y-0"}`}
+                      disabled={!selectedScope || isSending}
+                      className={`px-14 py-7 font-bold uppercase tracking-[0.4em] text-[11px] flex items-center group shadow-2xl transition-all relative ${
+                        !selectedScope || isSending
+                          ? "bg-gray-300 dark:bg-gray-800 text-gray-500 cursor-not-allowed"
+                          : "bg-navy dark:bg-gold text-white dark:text-navy hover:-translate-y-1 active:translate-y-0"
+                      }`}
                     >
-                      Dispatch Briefing{" "}
-                      <Send
-                        size={18}
-                        className={`ml-6 transition-transform ${selectedScope ? "group-hover:translate-x-2 group-hover:-translate-y-2" : ""}`}
-                      />
+                      {isSending ? (
+                        <div className="flex items-center space-x-4">
+                          <motion.div
+                            animate={{ rotate: 360 }}
+                            transition={{
+                              repeat: Infinity,
+                              duration: 1,
+                              ease: "linear",
+                            }}
+                            className="w-4 h-4 border-2 border-white/30 border-t-white dark:border-navy/30 dark:border-t-navy rounded-full"
+                          />
+                          <span>Dispatching Briefing...</span>
+                        </div>
+                      ) : (
+                        <>
+                          Dispatch Briefing{" "}
+                          <Send
+                            size={18}
+                            className={`ml-6 transition-transform ${
+                              selectedScope
+                                ? "group-hover:translate-x-2 group-hover:-translate-y-2"
+                                : ""
+                            }`}
+                          />
+                        </>
+                      )}
                     </button>
                   </div>
                 </form>
