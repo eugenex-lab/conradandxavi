@@ -7,6 +7,7 @@ import {
   ArrowDown,
   Plus,
   Minus,
+  ExternalLink,
 } from "lucide-react";
 import {
   motion,
@@ -274,6 +275,219 @@ const FAQSection = () => {
               </React.Fragment>
             ))}
           </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ThoughtLeadershipSection = () => {
+  const [articles, setArticles] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Pool of 20 high-quality legal and corporate images
+  const IMAGE_POOL = [
+    "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1507679799987-c73b4eafef1e?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1436450412740-6b988f486c6b?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1528744585532-6aed366112d7?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1593113024227-46307612667d?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1527529482837-45982136e031?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1585829365294-1b151a5617a2?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1591291621164-2c6367723315?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1473186578172-c141e6798ee4?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1621504450181-55abc8a011fb?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1512403730398-20ec60da994c?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1560179734-2e9f0f979963?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800",
+    "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800",
+  ];
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      // Shuffle the pool to get unique images for each load
+      const shuffledImages = [...IMAGE_POOL].sort(() => 0.5 - Math.random());
+
+      try {
+        const response = await fetch(
+          "https://newsdata.io/api/1/latest?apikey=pub_3dd86746afbf4968b6c1baf47c267bad&q=law&country=ng",
+        );
+        const data = await response.json();
+        if (data.status === "success" && data.results) {
+          const items = data.results
+            .slice(0, 3)
+            .map((item: any, idx: number) => ({
+              ...item,
+              // Use the API's image if available, otherwise rotate from our pool
+              displayImage:
+                item.image_url ||
+                shuffledImages[idx] ||
+                IMAGE_POOL[idx % IMAGE_POOL.length],
+              // Standardize values for the UI
+              title: item.title,
+              link: item.link,
+              description:
+                item.description ||
+                "Latest legal development and strategic insights from Nigeria's top judicial analysts.",
+              pubDate: item.pubDate,
+              category: item.category ? item.category[0] : "Legal Feed",
+            }));
+          setArticles(items);
+        } else {
+          throw new Error("Failed to fetch NewsData");
+        }
+      } catch (err) {
+        console.error("News fetch error:", err);
+        setArticles([
+          {
+            title: "Analysis of the Electoral Act (Amendment) Bill 2026",
+            description:
+              "President Tinubu signs pivotal legislation mandating electronic transmission of results via the IReV portal, reshaping Nigeria's electoral transparency.",
+            link: "https://thenigerialawyer.com",
+            pubDate: "2026-02-18T10:00:00Z",
+            displayImage: shuffledImages[0] || IMAGE_POOL[0],
+            category: "Legislation",
+          },
+          {
+            title: "Legal Challenges Mount Against the New 2026 Tax Regime",
+            description:
+              "Abuja High Court hears arguments on the constitutionality of the latest fiscal reforms scheduled to take full effect this month.",
+            link: "https://thenigerialawyer.com",
+            pubDate: "2026-02-15T09:30:00Z",
+            displayImage: shuffledImages[1] || IMAGE_POOL[1],
+            category: "Tax Law",
+          },
+          {
+            title: "Supreme Court Clarifies Industrial Court Jurisdiction",
+            description:
+              "Landmark ruling defines the boundaries of defamation claims within employment settings, providing much-needed clarity for labor litigation.",
+            link: "https://thenigerialawyer.com",
+            pubDate: "2026-02-10T14:15:00Z",
+            displayImage: shuffledImages[2] || IMAGE_POOL[2],
+            category: "Judicial",
+          },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
+  return (
+    <section className="py-40 bg-[#060816] text-white relative overflow-hidden">
+      {/* Deep, atmospheric background */}
+      <div className="absolute inset-0 z-0">
+        <motion.img
+          initial={{ scale: 1.2, opacity: 0.1 }}
+          whileInView={{ scale: 1, opacity: 0.2 }}
+          transition={{ duration: 4, ease: "easeOut" }}
+          src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=2000"
+          className="w-full h-full object-cover grayscale"
+          alt="Law atmospheric detail"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#060816] via-transparent to-[#060816]"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+          <div className="max-w-2xl">
+            <motion.span
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-gold font-bold text-[10px] uppercase tracking-[0.4em] mb-6 block"
+            >
+              Intelligence
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-5xl md:text-7xl font-serif font-medium dark:text-white leading-tight"
+            >
+              Thought <br />
+              <span className="italic text-gold">Leadership.</span>
+            </motion.h2>
+          </div>
+          <Link
+            to="/blog"
+            className="group flex items-center space-x-3 text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 hover:text-gold transition-colors"
+          >
+            <span>View All Insights</span>
+            <ArrowRight
+              size={14}
+              className="group-hover:translate-x-2 transition-transform"
+            />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {loading
+            ? // Skeleton Loaders
+              [1, 2, 3].map((i) => (
+                <div
+                  key={i}
+                  className="animate-pulse bg-navy/5 dark:bg-white/5 aspect-[4/5] rounded-xl"
+                ></div>
+              ))
+            : articles.map((article, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1, ...transitionConfig }}
+                  className="group flex flex-col h-full bg-white/[0.03] border border-white/5 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500"
+                >
+                  <div className="aspect-[16/10] overflow-hidden relative">
+                    <img
+                      src={
+                        article.displayImage ||
+                        "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=800"
+                      }
+                      className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
+                      alt={article.title}
+                    />
+                    <div className="absolute top-4 left-4 bg-navy/80 backdrop-blur-md px-3 py-1 rounded-full text-[8px] font-bold text-gold uppercase tracking-widest">
+                      {article.category || "Legal Insights"}
+                    </div>
+                  </div>
+                  <div className="p-8 flex flex-col flex-grow">
+                    <div className="text-[10px] text-white/40 font-medium uppercase tracking-widest mb-4">
+                      {new Date(article.pubDate).toLocaleDateString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-serif font-medium mb-4 text-white leading-snug group-hover:text-gold transition-colors line-clamp-3">
+                      {article.title}
+                    </h3>
+                    <p className="text-sm font-light text-gray-400 mb-8 line-clamp-3 overflow-hidden">
+                      {article.description.replace(/<[^>]*>?/gm, "")}
+                    </p>
+                    <div className="mt-auto pt-6 border-t border-navy/5 dark:border-white/5">
+                      <a
+                        href={article.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center space-x-3 text-[10px] font-bold uppercase tracking-[0.3em] text-gold hover:text-navy dark:hover:text-white transition-all transform hover:-translate-y-1"
+                      >
+                        <span>Read Briefing</span>
+                        <ExternalLink size={14} />
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
         </div>
       </div>
     </section>
@@ -658,70 +872,8 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="py-40 bg-navy dark:bg-[#001a35] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <motion.img
-            initial={{ scale: 1.1 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
-            src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000"
-            className="w-full h-full object-cover"
-            alt="Law detail"
-          />
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-navy via-navy/90 to-transparent"></div>
-
-        <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "backOut" }}
-            className="inline-flex items-center justify-center p-3 rounded-full bg-gold/10 mb-12 border border-gold/20"
-          >
-            <Award size={24} className="text-gold" />
-          </motion.div>
-
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, ...transitionConfig }}
-            className="text-gold font-bold text-[10px] uppercase tracking-[0.5em] mb-12 block"
-          >
-            Client Retrospective
-          </motion.span>
-
-          <motion.blockquote
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, ...transitionConfig }}
-            className="text-4xl md:text-5xl lg:text-6xl font-serif italic mb-16 leading-[1.2] selection:bg-gold selection:text-navy"
-          >
-            "Conrad & Xavi provided the strategic foresight that protected our
-            assets when the market was most volatile. They are the definitive
-            legal choice."
-          </motion.blockquote>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.6, duration: 1 }}
-            className="flex flex-col items-center"
-          >
-            <div className="w-16 h-[1px] bg-gold mb-8"></div>
-            <div className="font-bold text-[10px] uppercase tracking-[0.4em] mb-2 text-white/80">
-              Chief Dr. Emeka A.
-            </div>
-            <div className="text-[8px] uppercase tracking-widest text-gold font-bold">
-              Real Estate Magnate
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* Thought Leadership Section */}
+      <ThoughtLeadershipSection />
 
       {/* FAQ Section */}
       <FAQSection />
@@ -738,20 +890,20 @@ const HomePage: React.FC = () => {
               transition={transitionConfig}
               className="relative flex items-center justify-center min-h-[450px] md:min-h-[550px]"
             >
-              {/* Image 1 — Top Left: Lawyer */}
+              {/* Image 1 — Top Left: Scales of Justice */}
               <div className="absolute left-0 top-0 w-[55%] aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl z-10 group">
                 <img
-                  src="/images/law-s.jpg"
-                  alt="Lawyer reviewing contract"
+                  src="https://images.unsplash.com/photo-1436450412740-6b988f486c6b?auto=format&fit=crop&q=80&w=800"
+                  alt="Scales of justice"
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                 />
               </div>
-              {/* Image 2 — Bottom Right: Scales of Justice */}
+              {/* Image 2 — Bottom Right: Lawyer signing contract */}
               <div className="absolute right-4 bottom-0 w-[55%] aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl z-20 group">
                 <img
-                  src="/images/law-scale.jpg"
-                  alt="Scales of justice"
-                  className="w-full h-full object-cover group-hover:grayscale transition-all duration-700 group-hover:scale-105"
+                  src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=800"
+                  alt="Lawyer reviewing contract"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                 />
               </div>
               {/* Decorative Gold accent */}

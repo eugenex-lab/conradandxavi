@@ -530,9 +530,9 @@ const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Global Strategic Presence */}
-      <section className="min-h-[70vh] w-full relative overflow-hidden">
-        {/* Background Image — preserved */}
+      {/* Global Strategic Map Presence */}
+      <section className="h-[70vh] w-full relative overflow-hidden">
+        <div className="absolute inset-0 bg-navy/30 z-10 pointer-events-none"></div>
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=2000&auto=format&fit=crop"
@@ -540,61 +540,23 @@ const ContactPage: React.FC = () => {
             alt="Metropolitan Presence"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/70 to-navy/40 z-10" />
-
-        {/* Content */}
-        <div className="relative z-20 max-w-7xl mx-auto px-6 lg:px-8 py-24 lg:py-32 flex flex-col lg:flex-row items-center lg:items-end justify-between gap-16 min-h-[70vh]">
-          {/* Left: Heading */}
-          <div className="max-w-xl">
-            <div className="flex items-center space-x-4 mb-8">
-              <span className="w-16 h-[2px] bg-gold" />
-              <span className="text-gold font-bold text-[10px] uppercase tracking-[0.4em]">
-                Strategic Location
-              </span>
-            </div>
-            <h3 className="font-serif font-medium text-5xl lg:text-7xl text-white mb-6 leading-tight">
-              Unrivaled <br />
-              <span className="italic text-gold">Presence.</span>
-            </h3>
-            <p className="text-white/60 text-lg font-light leading-relaxed max-w-md">
+        <div className="absolute inset-0 flex items-center justify-center z-20 px-6">
+          <div className="glass p-12 lg:p-20 shadow-4xl text-center max-w-2xl border border-gold/30">
+            <h4 className="font-serif font-medium text-4xl lg:text-5xl mb-6 dark:text-white italic">
+              Unrivaled Presence.
+            </h4>
+            <p className="text-navy/70 dark:text-gray-400 text-lg mb-12 leading-relaxed font-light">
               Centrally located in the heart of Lagos' commercial and
               residential elite districts, ensuring absolute proximity to the
               engines of growth.
             </p>
-          </div>
-
-          {/* Right: Stats + CTA */}
-          <div className="flex flex-col items-start lg:items-end space-y-10">
-            <div className="flex space-x-12">
-              <div className="text-right">
-                <span className="block text-4xl font-serif text-gold font-bold">
-                  2
-                </span>
-                <span className="text-[9px] uppercase tracking-[0.3em] text-white/50 font-bold">
-                  Strategic Offices
-                </span>
-              </div>
-              <div className="text-right">
-                <span className="block text-4xl font-serif text-gold font-bold">
-                  Lagos
-                </span>
-                <span className="text-[9px] uppercase tracking-[0.3em] text-white/50 font-bold">
-                  Nigeria
-                </span>
-              </div>
-            </div>
             <a
               href="https://maps.google.com"
               target="_blank"
               rel="noreferrer"
-              className="group relative inline-flex items-center overflow-hidden bg-gold text-navy px-10 py-6 text-[10px] font-bold uppercase tracking-[0.4em] shadow-xl hover:-translate-y-1 active:translate-y-0 transition-all duration-300"
+              className="inline-block bg-gold text-navy px-12 py-5 text-xs font-bold uppercase tracking-[0.3em] transition-all hover:bg-navy hover:text-gold shadow-xl"
             >
-              <div className="absolute inset-0 bg-white translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] z-0" />
-              <span className="relative z-10">Consult Directions</span>
-              <ArrowRight
-                size={14}
-                className="relative z-10 ml-4 group-hover:translate-x-1 transition-transform duration-300"
-              />
+              Consult Directions
             </a>
           </div>
         </div>
