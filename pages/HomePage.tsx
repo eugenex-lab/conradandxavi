@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Award, MoveUpRight, ArrowDown } from "lucide-react";
+import {
+  ArrowRight,
+  Award,
+  MoveUpRight,
+  ArrowDown,
+  Plus,
+  Minus,
+} from "lucide-react";
 import {
   motion,
+  AnimatePresence,
   useScroll,
   useTransform,
   animate,
@@ -14,7 +22,6 @@ const HeroMediaSlider: React.FC = () => {
   const images = [
     "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=1200",
     "/images/hero_1.png",
-    "/images/legal_hero_3.png",
     "/images/legal_hero_4.png",
     "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=1200",
   ];
@@ -46,11 +53,13 @@ const HeroMediaSlider: React.FC = () => {
 
 const FullBackgroundSlider: React.FC = () => {
   const images = [
-    "/images/hero_1.png",
-    "/images/legal_hero_3.png",
-    "/images/legal_hero_4.png",
     "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000",
     "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2000",
+    "https://images.unsplash.com/photo-1507679799987-c73b4eafef1e?auto=format&fit=crop&q=80&w=2000",
+    "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?auto=format&fit=crop&q=80&w=2000",
+    "https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&q=80&w=2000",
+    "/images/hero_1.png",
+    "/images/legal_hero_4.png",
   ];
   const [current, setCurrent] = useState(0);
   useEffect(() => {
@@ -130,6 +139,145 @@ const AnimatedCounter = ({
 
   // Render purely a span without any reactive state to avoid React re-render overhead.
   return <span ref={ref}>{from}</span>;
+};
+
+const faqData = [
+  {
+    question: "Corporate Advisory & Commercial Transactions",
+    answer:
+      "We provide comprehensive corporate advisory services including company formations, mergers & acquisitions, joint ventures, and commercial contract drafting. Our team ensures your business transactions are structured for maximum protection and compliance with Nigerian commercial law.",
+  },
+  {
+    question: "Real Estate & Property Law",
+    answer:
+      "Our real estate practice covers property acquisitions, title verification, lease agreements, land use compliance, and dispute resolution. We protect your investments with rigorous due diligence and ensure all transactions meet regulatory requirements across Lagos and beyond.",
+  },
+  {
+    question: "Dispute Resolution & Litigation",
+    answer:
+      "From high-stakes commercial litigation to alternative dispute resolution (ADR), our advocates represent clients before all tiers of Nigerian courts and arbitration panels. We pursue favorable outcomes with strategic precision and unwavering commitment.",
+  },
+  {
+    question: "Intellectual Property Protection",
+    answer:
+      "We safeguard your creative and commercial assets through trademark registration, patent filing, copyright protection, and enforcement actions against infringement. Our IP practice ensures your innovations remain exclusively yours.",
+  },
+  {
+    question: "Tax & Regulatory Compliance",
+    answer:
+      "Our regulatory team advises on tax planning, FIRS compliance, industry-specific licensing, and government regulatory frameworks. We help businesses navigate Nigeria's complex regulatory environment with confidence and clarity.",
+  },
+  {
+    question: "Family Law & Estate Planning",
+    answer:
+      "We handle sensitive family matters including matrimonial proceedings, child custody, prenuptial agreements, estate planning, will drafting, and probate administration with the utmost discretion and care.",
+  },
+];
+
+const FAQItem = ({
+  item,
+  isOpen,
+  onToggle,
+}: {
+  item: { question: string; answer: string };
+  isOpen: boolean;
+  onToggle: () => void;
+}) => (
+  <div className="border-b border-white/10 last:border-b-0">
+    <button
+      onClick={onToggle}
+      className="w-full flex items-center justify-between py-7 md:py-8 text-left group"
+    >
+      <h3 className="text-lg md:text-2xl font-serif font-medium text-white pr-8 group-hover:text-gold transition-colors duration-300">
+        {item.question}
+      </h3>
+      <div
+        className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center shrink-0 transition-all duration-500 ${
+          isOpen
+            ? "bg-gold text-navy rotate-0"
+            : "bg-white/10 text-white group-hover:bg-gold/20 group-hover:text-gold"
+        }`}
+      >
+        {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+      </div>
+    </button>
+    <AnimatePresence initial={false}>
+      {isOpen && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: "auto", opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+          className="overflow-hidden"
+        >
+          <p className="text-white/60 text-base md:text-lg font-light leading-relaxed pb-8 pr-16 max-w-3xl">
+            {item.answer}
+          </p>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+);
+
+const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  return (
+    <section className="relative bg-navy dark:bg-[#001020] overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[800px]">
+        {/* Left Column: Lady Justice Image */}
+        <div className="hidden lg:block lg:col-span-4 relative">
+          <div className="sticky top-0 h-full">
+            <img
+              src="https://plus.unsplash.com/premium_photo-1668265206711-365ec11d3713?auto=format&fit=crop&q=100&w=1800"
+              alt="Lady Justice Statue"
+              className="w-full h-full object-cover object-center opacity-50 grayscale contrast-125"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-navy/60 to-navy" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy" />
+          </div>
+        </div>
+
+        {/* Right Column: FAQ Content */}
+        <div className="lg:col-span-8 px-6 md:px-12 lg:px-20 py-24 lg:py-32">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={transitionConfig}
+            className="mb-16"
+          >
+            <h2 className="text-5xl md:text-7xl font-serif font-medium text-white leading-tight mb-6">
+              Find Answers to Your <br />
+              <span className="italic text-gold">Legal Questions.</span>
+            </h2>
+            <p className="text-white/50 text-base md:text-lg font-light max-w-2xl leading-relaxed">
+              Our team provides clear, reliable solutions to help you understand
+              your rights and make informed decisions.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: 0.2, ...transitionConfig }}
+            className="border-t border-white/10"
+          >
+            {faqData.map((item, idx) => (
+              <React.Fragment key={idx}>
+                <FAQItem
+                  item={item}
+                  isOpen={openIndex === idx}
+                  onToggle={() => setOpenIndex(openIndex === idx ? null : idx)}
+                />
+              </React.Fragment>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 const HomePage: React.FC = () => {
@@ -575,52 +723,77 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-48 bg-beige dark:bg-navy-dark relative">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={transitionConfig}
-            className="text-gold font-bold text-[8px] uppercase tracking-[0.6em] mb-12 block"
-          >
-            Your Security is Our Priority
-          </motion.span>
+      {/* FAQ Section */}
+      <FAQSection />
 
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, ...transitionConfig }}
-            className="text-7xl md:text-9xl font-serif font-medium mb-16 dark:text-white leading-tight cursor-default group"
-          >
-            Secure Your <br />
-            <span className="italic text-gold inline-block group-hover:scale-105 transition-transform duration-500">
-              Representation.
-            </span>
-          </motion.h2>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, ...transitionConfig }}
-          >
-            <Link
-              to="/contact"
-              className="group relative inline-flex items-center overflow-hidden bg-navy text-white px-12 py-8 text-[10px] font-bold tracking-[0.4em] uppercase shadow-2xl hover:-translate-y-1 active:translate-y-0 transition-all duration-300"
+      {/* Who Are We Section */}
+      <section className="py-32 md:py-48 bg-beige dark:bg-navy-dark relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            {/* Left: Overlapping Images */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={transitionConfig}
+              className="relative flex items-center justify-center min-h-[450px] md:min-h-[550px]"
             >
-              <div className="absolute inset-0 bg-gold translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] z-0"></div>
-              <span className="relative z-10 group-hover:text-navy transition-colors duration-500 delay-100">
-                Schedule Private Consultation
+              {/* Image 1 — Top Left: Lawyer */}
+              <div className="absolute left-0 top-0 w-[55%] aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl z-10 group">
+                <img
+                  src="/images/law-s.jpg"
+                  alt="Lawyer reviewing contract"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
+                />
+              </div>
+              {/* Image 2 — Bottom Right: Scales of Justice */}
+              <div className="absolute right-4 bottom-0 w-[55%] aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl z-20 group">
+                <img
+                  src="/images/law-scale.jpg"
+                  alt="Scales of justice"
+                  className="w-full h-full object-cover group-hover:grayscale transition-all duration-700 group-hover:scale-105"
+                />
+              </div>
+              {/* Decorative Gold accent */}
+              <div className="absolute -bottom-6 left-[20%] w-24 h-24 border-2 border-gold/20 rounded-[1.5rem] -z-0" />
+            </motion.div>
+
+            {/* Right: Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: 0.2, ...transitionConfig }}
+            >
+              <span className="text-gold font-bold text-[8px] uppercase tracking-[0.6em] mb-6 block">
+                Your Security is Our Priority
               </span>
-              <MoveUpRight
-                size={18}
-                className="relative z-10 ml-6 group-hover:text-navy transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1 delay-100"
-              />
-            </Link>
-          </motion.div>
+              <h2 className="text-5xl md:text-7xl font-serif font-medium mb-8 dark:text-white leading-tight cursor-default group">
+                Secure Your <br />
+                <span className="italic text-gold inline-block group-hover:scale-105 transition-transform duration-500">
+                  Representation.
+                </span>
+              </h2>
+              <p className="text-navy/60 dark:text-gray-400 text-lg font-light leading-relaxed mb-10 max-w-lg">
+                Strategic representation and proven results for high-stakes
+                corporate and commercial litigation across global markets. Begin
+                your engagement with Conrad & Xavi LP today.
+              </p>
+              <Link
+                to="/contact"
+                className="group relative inline-flex items-center overflow-hidden bg-navy dark:bg-gold text-white dark:text-navy px-10 py-6 text-[10px] font-bold tracking-[0.4em] uppercase shadow-xl hover:-translate-y-1 active:translate-y-0 transition-all duration-300"
+              >
+                <div className="absolute inset-0 bg-gold dark:bg-white translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] z-0" />
+                <span className="relative z-10 group-hover:text-navy transition-colors duration-500 delay-100">
+                  Schedule Private Consultation
+                </span>
+                <MoveUpRight
+                  size={16}
+                  className="relative z-10 ml-4 group-hover:text-navy group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-500 delay-100"
+                />
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
     </div>
