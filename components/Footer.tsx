@@ -3,7 +3,11 @@ import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
 import { FIRM_INFO } from "../constants";
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  isDarkMode?: boolean;
+}
+
+const Footer: React.FC<FooterProps> = ({ isDarkMode = false }) => {
   return (
     <footer className="bg-navy text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,9 +16,9 @@ const Footer: React.FC = () => {
           <div className="col-span-1 lg:col-span-1">
             <Link to="/" className="flex items-center mb-6">
               <img
-                src="/images/logo.png"
+                src={isDarkMode ? "/images/logo-dark.png" : "/images/logo.png"}
                 alt="Conrad & Xavi Logo"
-                className="h-10 md:h-12 w-auto object-contain brightness-0 invert"
+                className="h-10 md:h-12 w-auto object-contain"
               />
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-6">

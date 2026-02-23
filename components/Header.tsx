@@ -55,11 +55,13 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
             {/* Logo area */}
             <Link to="/" className="flex items-center group z-50 relative">
               <img
-                src="/images/logo.png"
+                src={
+                  isDarkMode || isOpen
+                    ? "/images/logo-dark.png"
+                    : "/images/logo.png"
+                }
                 alt="Conrad & Xavi Logo"
-                className={`h-8 md:h-10 w-auto object-contain transition-all duration-500 ${
-                  isOpen && !isDarkMode ? "brightness-0 invert" : ""
-                }`}
+                className={`h-8 md:h-10 w-auto object-contain transition-all duration-500`}
               />
             </Link>
 

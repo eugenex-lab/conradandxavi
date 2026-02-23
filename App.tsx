@@ -53,7 +53,7 @@ const App: React.FC = () => {
             <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </main>
-        <Footer />
+        <Footer isDarkMode={isDarkMode} />
         <WhatsAppFAB />
       </div>
     </Router>
