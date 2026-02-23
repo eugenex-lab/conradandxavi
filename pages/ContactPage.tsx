@@ -122,11 +122,11 @@ const ContactPage: React.FC = () => {
 
   const globeConfig = {
     pointSize: 4,
-    globeColor: "#000b43", // The requested deep vibrant blue base
+    globeColor: "#08254D", // The requested deep vibrant blue base
     showAtmosphere: true,
     atmosphereColor: "#d4af37", // Gold atmosphere
     atmosphereAltitude: 0.1,
-    emissive: "#000b43",
+    emissive: "#08254D",
     emissiveIntensity: 0.5, // High intensity to make the dark blue "glow" and look blue rather than black
     shininess: 0.9,
     polygonColor: "rgba(255, 255, 255, 0.7)", // Contrast dots
@@ -283,7 +283,7 @@ const ContactPage: React.FC = () => {
   return (
     <div className="bg-beige dark:bg-navy-dark overflow-x-hidden">
       {/* Premium Hero Header with Globe */}
-      <section className=" pb-4 lg:pb-12 px-6 sm:px-12 lg:px-20 max-w-7xl mx-auto overflow-visible relative">
+      <section className=" pb-4 lg:pb-12 px-6 sm:px-12 lg:px-20 lg:pr-0  max-w-7xl mx-auto overflow-visible relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-20 items-center">
           <div className="z-20 relative order-2 lg:order-1 pt-0 lg:pt-0">
             <div className="inline-flex items-center space-x-3 mb-8">
@@ -302,13 +302,15 @@ const ContactPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="order-1 lg:order-2 relative w-[300px] sm:w-[400px] lg:w-[600px] h-[300px] sm:h-[400px] lg:h-[600px] mx-auto scale-110 drop-shadow-2xl">
-            <div className="absolute inset-0  from-beige via-transparent to-transparent lg:hidden dark:from-navy-dark z-10 pointer-events-none w-full h-full bottom-0 left-0"></div>
-            <World
-              globeConfig={globeConfig}
-              data={sampleArcs}
-              pinsData={officePins}
-            />
+          <div className="order-1 lg:order-2 flex items-center justify-center w-full">
+            <div className="relative w-[300px] sm:w-[400px] lg:w-[600px] h-[300px] sm:h-[400px] lg:h-[600px] scale-110 drop-shadow-2xl">
+              <div className="absolute inset-0  from-beige via-transparent to-transparent lg:hidden dark:from-navy-dark z-10 pointer-events-none w-full h-full bottom-0 left-0"></div>
+              <World
+                globeConfig={globeConfig}
+                data={sampleArcs}
+                pinsData={officePins}
+              />
+            </div>
           </div>
         </div>
       </section>
