@@ -303,7 +303,7 @@ const ContactPage: React.FC = () => {
           </div>
 
           <div className="order-1 lg:order-2 relative w-[300px] sm:w-[400px] lg:w-[600px] h-[300px] sm:h-[400px] lg:h-[600px] mx-auto scale-110 drop-shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-t from-beige via-transparent to-transparent lg:hidden dark:from-navy-dark z-10 pointer-events-none w-full h-full bottom-0 left-0"></div>
+            <div className="absolute inset-0  from-beige via-transparent to-transparent lg:hidden dark:from-navy-dark z-10 pointer-events-none w-full h-full bottom-0 left-0"></div>
             <World
               globeConfig={globeConfig}
               data={sampleArcs}
