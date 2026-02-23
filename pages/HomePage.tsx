@@ -316,7 +316,7 @@ const ThoughtLeadershipSection = () => {
 
       try {
         const response = await fetch(
-          "https://newsdata.io/api/1/latest?apikey=pub_3dd86746afbf4968b6c1baf47c267bad&q=law&country=ng",
+          `https://newsdata.io/api/1/latest?apikey=${import.meta.env.VITE_NEWSDATA_API_KEY}&q=law&country=ng`,
         );
         const data = await response.json();
         if (data.status === "success" && data.results) {
@@ -448,11 +448,23 @@ const ThoughtLeadershipSection = () => {
                   className="group flex flex-col h-full bg-white/[0.03] border border-white/5 rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500"
                 >
                   <div className="aspect-[16/10] overflow-hidden relative">
-                    <img
+                    <motion.img
+                      initial={{ opacity: 0, y: -40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
                       src={
                         article.displayImage ||
-                        "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=800"
+                        IMAGE_POOL[
+                          Math.floor(Math.random() * IMAGE_POOL.length)
+                        ]
                       }
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          IMAGE_POOL[
+                            Math.floor(Math.random() * IMAGE_POOL.length)
+                          ];
+                      }}
                       className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000"
                       alt={article.title}
                     />

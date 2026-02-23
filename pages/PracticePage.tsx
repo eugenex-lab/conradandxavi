@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { PRACTICE_AREAS, FIRM_INFO } from "../constants";
+import { motion } from "framer-motion";
 import {
   CheckCircle,
   Briefcase,
@@ -21,46 +22,101 @@ const iconMap: any = {
   ShieldCheck: ShieldCheck,
 };
 
-// Colorful, premium images for each legal context
 const practiceImages: Record<string, string> = {
-  adv: "https://images.unsplash.com/photo-1507679799987-c7377058606c?q=80&w=1200&auto=format&fit=crop", // Business Advisory
+  adv: "/business_advisory.png", // Business Advisory
   corp: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1200&auto=format&fit=crop", // Corporate
   real: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop", // Real Estate
-  lit: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=1200&auto=format&fit=crop", // Litigation
-  fam: "https://images.unsplash.com/photo-1573164060021-450d168e2f27?q=80&w=1200&auto=format&fit=crop", // Family Law - High-end consultation
+  lit: "/litigation.png", // Litigation
+  fam: "/family_law.png", // Family Office
 };
 
 const PracticePage: React.FC = () => {
   return (
-    <div className="bg-beige dark:bg-navy-dark pt-20 overflow-hidden">
-      {/* Hero Section - High-End Corporate Aesthetic */}
-      <section className="relative py-40 bg-navy text-white overflow-hidden">
-        {/* Animated Background Overlay */}
-        <div className="absolute inset-0 z-0">
+    <div className="bg-beige dark:bg-[#00152e]  overflow-hidden">
+      {/* Hero Section - Silicon Valley Elite Aesthetic */}
+      <section className="relative pt-32 pb-40 bg-navy dark:bg-[#00152e] text-white overflow-hidden group">
+        {/* Ambient Background Image */}
+        <motion.div
+          className="absolute inset-0 z-0 pointer-events-none"
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 0.35, scale: 1.05 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+        >
           <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000"
-            className="w-full h-full object-cover opacity-20 grayscale scale-110 animate-pulse-slow"
+            src="/ny_corporate_secret.png"
+            className="w-full h-full object-cover saturate-0 brightness-[0.7]"
             alt="Hero Background"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy/80 via-navy/40 to-navy"></div>
-        </div>
+          {/* Subtle vignette */}
+          <div className="absolute inset-0 bg-gradient-to-r from-navy dark:from-[#00152e] via-transparent to-navy/50 dark:to-[#00152e]/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-navy dark:from-[#00152e] via-transparent to-navy dark:to-[#00152e] opacity-80"></div>
+        </motion.div>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-20 relative z-10 text-center">
-          <div className="inline-flex items-center space-x-6 mb-12 reveal-up stagger-1">
-            <span className="w-16 h-[1px] bg-gold/50"></span>
-            <span className="text-[12px] font-bold uppercase tracking-[0.5em] text-gold">
-              Elite Legal Strategy
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 flex flex-col justify-center min-h-[50vh]">
+          {/* Tag */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="mb-10"
+          >
+            <span className="text-[10px] items-center font-bold uppercase tracking-[0.45em] text-gold">
+              Practice Dimensions
             </span>
-            <span className="w-16 h-[1px] bg-gold/50"></span>
-          </div>
-          <h1 className="text-7xl md:text-9xl lg:text-[140px] font-serif font-medium mb-12 leading-[0.85] tracking-tight reveal-up stagger-2">
-            Practice <br />{" "}
-            <span className="italic text-gold">Excellence.</span>
+          </motion.div>
+
+          {/* Heading */}
+          <h1 className="text-[clamp(3.5rem,8.5vw,9rem)] font-sans font-black leading-[0.85] tracking-tighter w-full max-w-5xl text-white">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1.2,
+                delay: 0.2,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            >
+              Mastery Across
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1.2,
+                delay: 0.3,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="flex flex-wrap gap-x-6 gap-y-2 mt-4 md:mt-1"
+            >
+              <span>Every</span>
+              <span className="font-serif font-medium italic text-gold relative">
+                Legal
+              </span>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 1.2,
+                delay: 0.4,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="font-serif font-medium italic text-gold/60 mt-4 md:mt-1"
+            >
+              Dimension.
+            </motion.div>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto font-light leading-relaxed reveal-up stagger-3">
-            Providing rigorous legal representation and strategic counsel across
-            specialized sectors since 2014.
-          </p>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, delay: 0.7 }}
+            className="text-lg md:text-xl text-white/50 max-w-xl font-light leading-relaxed mt-16"
+          >
+            Sophisticated legal architecture for global enterprises, private
+            wealth, and complex litigation.
+          </motion.p>
         </div>
       </section>
 
@@ -188,20 +244,37 @@ const PracticePage: React.FC = () => {
       </section>
 
       {/* CTA Section - Minimalist Wow */}
-      <section className="py-64 bg-navy text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold/10 via-transparent to-transparent opacity-50"></div>
+      <section className="py-64 bg-navy dark:bg-[#00152e] text-white relative overflow-hidden group">
+        {/* Ambient Background Image */}
+        <motion.div
+          className="absolute inset-0 z-0 pointer-events-none"
+          initial={{ opacity: 0, scale: 1.1 }}
+          whileInView={{ opacity: 0.35, scale: 1.05 }}
+          viewport={{ once: true }}
+          transition={{ duration: 2, ease: "easeOut" }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000"
+            className="w-full h-full object-cover saturate-0 brightness-[0.7]"
+            alt="CTA Background"
+          />
+          {/* Subtle vignette */}
+          <div className="absolute inset-0 bg-gradient-to-r from-navy dark:from-[#00152e] via-transparent to-navy/50 dark:to-[#00152e]/50"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-navy dark:from-[#00152e] via-transparent to-navy dark:to-[#00152e] opacity-80"></div>
+        </motion.div>
+
         <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
           <div className="w-20 h-[1px] bg-gold mx-auto mb-16"></div>
           <span className="text-gold font-bold text-[10px] uppercase tracking-[0.8em] mb-12 block">
             Strategic Resilience
           </span>
-          <h2 className="text-6xl md:text-9xl font-serif font-medium mb-20 leading-[0.9] tracking-tighter">
+          <h2 className="text-6xl md:text-9xl font-serif font-medium mb-20 leading-[0.9] tracking-tighter transition-all duration-700">
             Defending <br />{" "}
-            <span className="italic text-gold px-4">Legacy.</span>
+            <span className="italic text-gold px-4 relative">Legacy.</span>
           </h2>
           <Link
             to="/contact"
-            className="group inline-flex items-center space-x-10 bg-white text-navy px-20 py-10 text-[10px] font-bold tracking-[0.6em] uppercase transition-all hover:bg-gold hover:shadow-[0_0_80px_rgba(174,152,98,0.4)]"
+            className="group inline-flex items-center space-x-10 bg-white dark:bg-white/10 dark:text-white dark:backdrop-blur-sm dark:border dark:border-white/20 text-navy px-20 py-10 text-[10px] font-bold tracking-[0.6em] uppercase transition-all hover:bg-gold dark:hover:bg-gold dark:hover:text-navy hover:shadow-[0_0_80px_rgba(174,152,98,0.4)]"
           >
             <span>Request Advisory</span>
             <ArrowRight

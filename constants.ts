@@ -70,11 +70,13 @@ export const PRACTICE_AREAS: PracticeArea[] = [
     id: "fam",
     title: "Family Law",
     description:
-      "Sensitive and professional handling of domestic legal matters with a focus on sustainable outcomes.",
+      "Elite structuring and preservation of multi-generational wealth, ensuring seamless succession and legacy management.",
     icon: "Users",
     keyServices: [
-      "Divorce & Separation",
-      "Child Custody",
+      "Wealth Preservation",
+      "Trusts & Foundations",
+      "Succession Planning",
+      "Private Client Services",
       "Wills & Probate",
       "Estate Planning",
     ],
@@ -155,5 +157,135 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "Sept 28, 2025",
     author: "Xavier Nnamdi",
     image: "https://picsum.photos/seed/blog2/600/400",
+  },
+  {
+    id: "b3",
+    title: "Arbitration vs. Litigation: Choosing the Right Path for Disputes",
+    excerpt:
+      "A comparative analysis of dispute resolution mechanisms in the Nigerian commercial sector.",
+    category: "Dispute Resolution",
+    date: "Sept 20, 2025",
+    author: "Aisha Bello",
+    image: "https://picsum.photos/seed/blog3/600/400",
+  },
+  {
+    id: "b4",
+    title: "Securing Intellectual Property in the Digital Age",
+    excerpt:
+      "Proactive steps for Nigerian tech entrepreneurs to protect their patents and trademarks.",
+    category: "IP Law",
+    date: "Sept 15, 2025",
+    author: "Olawale Conrad",
+    image: "https://picsum.photos/seed/blog4/600/400",
+  },
+  {
+    id: "b5",
+    title: "The Role of ESG in Nigerian Corporate Governance",
+    excerpt:
+      "Why Environmental, Social, and Governance criteria are becoming central to law and business.",
+    category: "Corporate Governance",
+    date: "Sept 05, 2025",
+    author: "Xavier Nnamdi",
+    image: "https://picsum.photos/seed/blog5/600/400",
+  },
+  {
+    id: "b6",
+    title: "Succession Planning for Family-Owned Enterprises",
+    excerpt:
+      "Legal frameworks for ensuring the longevity of multi-generational businesses.",
+    category: "Family Office",
+    date: "Aug 28, 2025",
+    author: "Aisha Bello",
+    image: "https://picsum.photos/seed/blog6/600/400",
+  },
+  {
+    id: "b7",
+    title: "Fintech Regulations: Navigating the CBN Guidelines",
+    excerpt:
+      "An overview of the evolving regulatory landscape for financial technology companies in Nigeria.",
+    category: "Fintech",
+    date: "Aug 20, 2025",
+    author: "Olawale Conrad",
+    image: "https://picsum.photos/seed/blog7/600/400",
+  },
+  {
+    id: "b8",
+    title: "Maritime Law Trends: Implications for Nigerian Trade",
+    excerpt:
+      "Analyzing recent changes in international maritime law and their local impact.",
+    category: "Maritime Law",
+    date: "Aug 12, 2025",
+    author: "Xavier Nnamdi",
+    image: "https://picsum.photos/seed/blog8/600/400",
+  },
+  {
+    id: "b9",
+    title: "Tax Planning Strategies for High-Net-Worth Individuals",
+    excerpt:
+      "Legal avenues for optimizing tax liabilities within the Nigerian fiscal framework.",
+    category: "Tax Law",
+    date: "Aug 05, 2025",
+    author: "Aisha Bello",
+    image: "https://picsum.photos/seed/blog9/600/400",
+  },
+  {
+    id: "b10",
+    title: "Labor Law Compliance: A Guide for Multinational Operations",
+    excerpt:
+      "Ensuring your foreign operations align with Nigerian labor statutes and practices.",
+    category: "Labor Law",
+    date: "July 28, 2025",
+    author: "Olawale Conrad",
+    image: "https://picsum.photos/seed/blog10/600/400",
+  },
+  {
+    id: "b11",
+    title: "Cryptocurrency and Law: The Nigerian Perspective",
+    excerpt:
+      "Understanding the legal status and regulatory approach to digital assets in Nigeria.",
+    category: "Technology Law",
+    date: "July 15, 2025",
+    author: "Xavier Nnamdi",
+    image: "https://picsum.photos/seed/blog11/600/400",
+  },
+  {
+    id: "b12",
+    title: "Structuring Energy Projects: Oil, Gas, and Renewables",
+    excerpt:
+      "Legal considerations for large-scale energy sector investments and development.",
+    category: "Energy Law",
+    date: "July 10, 2025",
+    author: "Aisha Bello",
+    image: "https://picsum.photos/seed/blog12/600/400",
+  },
+  {
+    id: "b13",
+    title: "Effective Debt Recovery Tactics for Corporations",
+    excerpt:
+      "Legal mechanisms for managing receivables and securing commercial debt recovery.",
+    category: "Commercial Law",
+    date: "June 25, 2025",
+    author: "Olawale Conrad",
+    image: "https://picsum.photos/seed/blog13/600/400",
+  },
+  {
+    id: "b14",
+    title: "Public-Private Partnerships: The Legal Framework",
+    excerpt:
+      "Navigating the complexities of PPP projects in infrastructure development.",
+    category: "Infrastructure",
+    date: "June 18, 2025",
+    author: "Xavier Nnamdi",
+    image: "https://picsum.photos/seed/blog14/600/400",
+  },
+  {
+    id: "b15",
+    title: "The Future of Legal Tech: AI in the Courtroom",
+    excerpt:
+      "How artificial intelligence is beginning to reshape the practice of law in West Africa.",
+    category: "Legal Tech",
+    date: "June 05, 2025",
+    author: "Aisha Bello",
+    image: "https://picsum.photos/seed/blog15/600/400",
   },
 ];
