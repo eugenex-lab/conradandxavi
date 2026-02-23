@@ -24,7 +24,7 @@
     "react-router-dom": "^7.13.0",
     "tailwind-merge": "^3.5.0",
     "three": "^0.183.1",
-    "vercel": "^50.22.1"
+    "vercel": "^41.0.2"
   },
   "devDependencies": {
     "@types/d3-array": "^3.2.2",
