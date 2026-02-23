@@ -16,7 +16,7 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode = false }) => {
           <div className="col-span-1 lg:col-span-1">
             <Link to="/" className="flex items-center mb-6">
               <img
-                src={isDarkMode ? "/images/logo-dark.png" : "/images/logo.png"}
+                src="/images/logo-dark.png"
                 alt="Conrad & Xavi Logo"
                 className="h-10 md:h-12 w-auto object-contain"
               />
