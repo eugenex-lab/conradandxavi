@@ -53,30 +53,14 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
           <div className="flex justify-between items-center">
             {/* Logo area */}
-            <Link to="/" className="flex flex-col group z-50 relative">
-              <span
-                className={`text-xl md:text-2xl font-serif font-medium tracking-tight transition-colors duration-500 ${
-                  scrolled || isDarkMode || isOpen
-                    ? "text-navy dark:text-white"
-                    : "text-navy"
-                } ${isOpen && !isDarkMode ? "!text-white" : ""}`}
-              >
-                <span className="text-gold italic pr-1">Conrad</span>& Xavi
-              </span>
-              <div className="overflow-hidden mt-1">
-                <motion.span
-                  className={`block text-[9px] tracking-[0.3em] uppercase font-light transition-colors duration-500 ${
-                    scrolled || isDarkMode || isOpen
-                      ? "text-navy/60 dark:text-gray-400"
-                      : "text-navy/60"
-                  } ${isOpen && !isDarkMode ? "!text-white/60" : ""}`}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.5, duration: 0.8 }}
-                >
-                  Legal Practice
-                </motion.span>
-              </div>
+            <Link to="/" className="flex items-center group z-50 relative">
+              <img
+                src="/images/logo.png"
+                alt="Conrad & Xavi Logo"
+                className={`h-8 md:h-10 w-auto object-contain transition-all duration-500 ${
+                  isOpen && !isDarkMode ? "brightness-0 invert" : ""
+                }`}
+              />
             </Link>
 
             {/* Desktop Nav */}

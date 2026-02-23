@@ -224,15 +224,15 @@ const AboutPage: React.FC = () => {
                   year: "2024+",
                   title: "Excellence Continues",
                   desc: "Marking a decade of unwavering results and continuing to architect certainty for our elite clientele.",
-                  img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800",
+                  img: "/img-co.png",
                 },
               ].map((item, idx) => (
                 <div
                   key={idx}
-                  className={`flex flex-col md:flex-row items-center gap-16 lg:gap-24 ${idx % 2 === 0 ? "" : "md:flex-row-reverse"}`}
+                  className={`flex flex-col md:flex-row items-center gap-8 lg:gap-16 ${idx % 2 === 0 ? "" : "md:flex-row-reverse"}`}
                 >
                   <div
-                    className={`md:w-1/2 ${idx % 2 === 0 ? "md:text-right" : "md:text-left"}`}
+                    className={`flex-1 w-full ${idx % 2 === 0 ? "md:text-right" : "md:text-left"}`}
                   >
                     <div className="inline-block px-6 py-2 bg-navy text-gold text-sm font-bold mb-8 italic tracking-[0.2em]">
                       {item.year}
@@ -244,8 +244,30 @@ const AboutPage: React.FC = () => {
                       {item.desc}
                     </p>
                   </div>
-                  <div className="w-12 h-12 rounded-full border-[6px] border-gold bg-beige dark:bg-navy-dark relative z-20 shrink-0 shadow-[0_0_20px_rgba(197,160,33,0.3)]"></div>
-                  <div className="md:w-1/2 group relative">
+                  <motion.div
+                    initial={{
+                      boxShadow: "0 0 0px rgba(197,160,33,0)",
+                      scale: 1,
+                      borderColor: "rgba(197,160,33,0.3)",
+                    }}
+                    whileInView={{
+                      boxShadow: [
+                        "0 0 0px rgba(197,160,33,0)",
+                        "0 0 40px rgba(197,160,33,1)",
+                        "0 0 20px rgba(197,160,33,0.6)",
+                      ],
+                      scale: [1, 1.2, 1],
+                      borderColor: "rgba(197,160,33,1)",
+                      transition: {
+                        delay: 0.1,
+                        duration: 1,
+                        ease: "easeInOut",
+                      },
+                    }}
+                    viewport={{ margin: "-50% 0px -50% 0px" }}
+                    className="w-12 h-12 rounded-full border-[6px] bg-beige dark:bg-navy-dark relative z-20 shrink-0"
+                  />
+                  <div className="flex-1 w-full group relative">
                     <div className="absolute inset-0 bg-navy/40 group-hover:bg-transparent transition-all z-10"></div>
                     <img
                       src={item.img}

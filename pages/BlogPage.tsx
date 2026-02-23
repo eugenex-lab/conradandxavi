@@ -108,7 +108,7 @@ const BlogPage: React.FC = () => {
 
   const featured = filtered[0];
   const sideArticles = filtered.slice(1, 3);
-  const gridArticles = [...filtered.slice(3)].reverse();
+  const gridArticles = [...filtered.slice(3)].reverse().slice(0, 6);
 
   /* ─── Skeleton card ─────────────────────────────── */
   const Skeleton = () => (
