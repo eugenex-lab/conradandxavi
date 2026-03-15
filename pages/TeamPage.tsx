@@ -261,22 +261,38 @@ const TeamPage: React.FC = () => {
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
-                    style={{ objectPosition: member.imagePosition || "center" }}
+                    style={{ objectPosition: member.imagePosition || "center top" }}
                   />
-                  
-                  {/* Premium Hover Overlay Gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/90 via-navy-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                  
-                  {/* Sleek Glass Actions Pill */}
-                  <div className="absolute bottom-8 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-all duration-700">
-                    <div className="flex items-center bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-full transform translate-y-10 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
-                      <a 
-                        href="mailto:conradnxavi@gmail.com"
-                        className="w-12 h-12 rounded-full bg-gold flex items-center justify-center text-navy hover:scale-110 transition-all duration-300"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <Mail size={20} />
-                      </a>
+
+                  {/* Premium Royal Blue Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-navy/90 via-navy/70 to-navy/30 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center text-white px-8 text-center pointer-events-none">
+                    <div className="transform translate-y-12 group-hover:translate-y-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col items-center">
+                      <div className="text-gold font-bold text-[9px] uppercase tracking-[0.4em] mb-4">
+                        {member.position}
+                      </div>
+
+                      <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 pl-8 pr-6 py-3.5 rounded-full shadow-2xl group/btn transition-all duration-300 hover:border-gold/50">
+                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">
+                          View Profile
+                        </span>
+                        <div className="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-navy shadow-lg">
+                          <ArrowUpRight size={14} />
+                        </div>
+                      </div>
+
+                      {/* Explicit Click Indicator */}
+                      <div className="mt-8 flex flex-col items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-1000 delay-500">
+                        <div className="flex items-center gap-3">
+                          <div className="w-6 h-[1px] bg-gold/30"></div>
+                          <span className="text-[8px] text-gold uppercase tracking-[0.4em] font-bold">
+                            Click to Open
+                          </span>
+                          <div className="w-6 h-[1px] bg-gold/30"></div>
+                        </div>
+                        <div className="animate-bounce mt-1">
+                          <ChevronDown size={16} className="text-gold" />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -361,12 +377,17 @@ const TeamPage: React.FC = () => {
                   </h4>
                   <div className="space-y-4">
                     {selectedMember.profile?.map((paragraph, idx) => (
-                      <p key={idx} className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                      <p
+                        key={idx}
+                        className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg"
+                      >
                         {paragraph}
                       </p>
                     )) || (
                       <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
-                        {selectedMember.name} is a distinguished legal practitioner specializing in {selectedMember.specialization}.
+                        {selectedMember.name} is a distinguished legal
+                        practitioner specializing in{" "}
+                        {selectedMember.specialization}.
                       </p>
                     )}
                   </div>
@@ -381,7 +402,10 @@ const TeamPage: React.FC = () => {
                       </h4>
                       <ul className="space-y-2">
                         {selectedMember.practiceAreas.map((area, idx) => (
-                          <li key={idx} className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                          <li
+                            key={idx}
+                            className="flex items-center gap-2 text-gray-700 dark:text-gray-300"
+                          >
                             <div className="w-1.5 h-1.5 rounded-full bg-gold"></div>
                             <span className="text-base">{area}</span>
                           </li>
@@ -398,7 +422,10 @@ const TeamPage: React.FC = () => {
                       </h4>
                       <ul className="space-y-3">
                         {selectedMember.education.map((edu, idx) => (
-                          <li key={idx} className="text-gray-700 dark:text-gray-300">
+                          <li
+                            key={idx}
+                            className="text-gray-700 dark:text-gray-300"
+                          >
                             <p className="text-base leading-snug">{edu}</p>
                           </li>
                         ))}
@@ -414,7 +441,10 @@ const TeamPage: React.FC = () => {
                       </h4>
                       <div className="flex flex-wrap gap-3">
                         {selectedMember.memberships.map((membership, idx) => (
-                          <span key={idx} className="px-4 py-2 bg-gray-100 dark:bg-white/5 rounded-lg text-sm text-gray-700 dark:text-gray-300">
+                          <span
+                            key={idx}
+                            className="px-4 py-2 bg-gray-100 dark:bg-white/5 rounded-lg text-sm text-gray-700 dark:text-gray-300"
+                          >
                             {membership}
                           </span>
                         ))}
