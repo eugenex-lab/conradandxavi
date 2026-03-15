@@ -348,25 +348,57 @@ const ContactPage: React.FC = () => {
 
             {/* Direct Channels */}
             <div className="space-y-10">
+              {/* WhatsApp Secure Line */}
               <a
-                href={`tel:${FIRM_INFO.phones[0]}`}
+                href="https://api.whatsapp.com/send/?phone=2348032153088&text&type=phone_number&app_absent=0"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center space-x-8 group"
               >
+                <div className="w-14 h-14 rounded-full border border-navy/10 dark:border-white/10 flex items-center justify-center text-navy dark:text-white group-hover:bg-gold group-hover:border-gold group-hover:text-navy transition-all shadow-lg">
+                  <MessageCircle size={24} />
+                </div>
+                <div className="flex-grow">
+                  <div className="flex items-center justify-between mb-1">
+                    <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400">
+                      WhatsApp Secure Line
+                    </h4>
+                    <CopyButton text="08032153088" />
+                  </div>
+                  <p className="text-2xl font-medium text-navy dark:text-white group-hover:text-gold transition-colors">
+                    08032153088
+                  </p>
+                </div>
+              </a>
+
+              <div className="flex items-center space-x-8 group">
                 <div className="w-14 h-14 rounded-full border border-navy/10 dark:border-white/10 flex items-center justify-center text-navy dark:text-white group-hover:bg-gold group-hover:border-gold group-hover:text-navy transition-all shadow-lg">
                   <Phone size={24} />
                 </div>
                 <div className="flex-grow">
                   <div className="flex items-center justify-between mb-1">
                     <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400">
-                      Secure Line
+                      Direct Call Line
                     </h4>
-                    <CopyButton text={FIRM_INFO.phones[0]} />
+                    <CopyButton text={FIRM_INFO.phones.join(" | ")} />
                   </div>
-                  <p className="text-2xl font-medium text-navy dark:text-white group-hover:text-gold transition-colors">
-                    {FIRM_INFO.phones[0]}
-                  </p>
+                  <div className="text-2xl font-medium text-navy dark:text-white flex flex-wrap gap-x-3">
+                    {FIRM_INFO.phones.map((phone, i) => (
+                      <React.Fragment key={phone}>
+                        <a
+                          href={`tel:${phone}`}
+                          className="hover:text-gold transition-colors"
+                        >
+                          {phone}
+                        </a>
+                        {i < FIRM_INFO.phones.length - 1 && (
+                          <span className="opacity-20 text-navy dark:text-white">|</span>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </div>
                 </div>
-              </a>
+              </div>
 
               <a
                 href={`mailto:${FIRM_INFO.email}`}
@@ -396,8 +428,8 @@ const ContactPage: React.FC = () => {
                   <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400 mb-1">
                     Advisory Hours
                   </h4>
-                  <p className="text-2xl font-medium text-navy dark:text-white">
-                    Monday — Friday: 8 AM - 6 PM
+                  <p className="text-2xl font-medium text-navy dark:text-white font-serif italic">
+                    Mon — Fri: 8 AM - 6 PM
                   </p>
                 </div>
               </div>

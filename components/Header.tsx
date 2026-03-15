@@ -129,8 +129,16 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
               </Link>
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden flex items-center space-x-6 z-50 relative">
+            {/* Mobile section */}
+            <div className="md:hidden flex items-center space-x-5 z-50 relative">
+              {/* Current Page Indicator */}
+              <div className="flex flex-col items-end mr-2">
+                <span className={`text-[8px] font-black uppercase tracking-[0.25em] ${isOpen ? "text-gold" : isDarkMode ? "text-gold" : "text-gold"}`}>
+                  {navLinks.find((link) => link.path === location.pathname)?.name || "Home"}
+                </span>
+                <div className="h-[1px] w-4 bg-gold/30 mt-0.5"></div>
+              </div>
+
               <button
                 onClick={toggleDarkMode}
                 className={`p-1 transition-colors duration-500 ${
@@ -202,7 +210,13 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
                       onClick={() => setIsOpen(false)}
                       className="group inline-block"
                     >
-                      <span className="text-4xl sm:text-5xl font-serif text-white/50 group-hover:text-white transition-colors duration-500">
+                      <span
+                        className={`text-4xl sm:text-5xl font-serif transition-colors duration-500 ${
+                          location.pathname === link.path
+                            ? "text-gold"
+                            : "text-white/50 group-hover:text-white"
+                        }`}
+                      >
                         {link.name}
                       </span>
                     </Link>

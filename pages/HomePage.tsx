@@ -382,7 +382,7 @@ const ThoughtLeadershipSection = () => {
   }, []);
 
   return (
-    <section className="py-40 bg-[#060816] text-white relative overflow-hidden">
+    <section className="py-40 bg-[#060816] text-white relative overflow-hidden px-2">
       {/* Deep, atmospheric background */}
       <div className="absolute inset-0 z-0">
         <motion.img
@@ -511,11 +511,11 @@ const HomePage: React.FC = () => {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
-    <div className="relative overflow-hidden bg-beige/50 dark:bg-navy-dark">
+    <div className="relative overflow-hidden bg-beige/50 dark:bg-navy-dark ">
       <GlobalBackground />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col lg:flex-row items-stretch">
+      <section className="relative min-h-screen flex flex-col lg:flex-row items-stretch px-2">
         <FullBackgroundSlider />
 
         {/* Left Content Column */}
@@ -653,7 +653,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Services Highlights */}
-      <section className="relative py-32 bg-transparent border-t border-navy/5 dark:border-white/5 overflow-hidden">
+      <section className="relative py-32 bg-transparent border-t border-navy/5 dark:border-white/5 overflow-hidden px-2">
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=2000"
@@ -794,7 +794,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* About Summary */}
-      <section className="py-40 bg-transparent relative overflow-hidden">
+      <section className="py-40 bg-transparent relative overflow-hidden px-2">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gold/5 -z-10 translate-x-1/2 skew-x-12"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -891,7 +891,7 @@ const HomePage: React.FC = () => {
       <FAQSection />
 
       {/* Who Are We Section */}
-      <section className="py-32 md:py-48 bg-beige dark:bg-navy-dark relative overflow-hidden">
+      <section className="py-32 md:py-48 bg-beige dark:bg-navy-dark relative overflow-hidden px-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             {/* Left: Overlapping Images */}

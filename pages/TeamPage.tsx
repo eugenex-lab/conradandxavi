@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { TEAM_MEMBERS } from "../constants";
 import {
@@ -383,7 +384,7 @@ const TeamPage: React.FC = () => {
                 alt={selectedMember.name}
                 className="w-full h-full object-cover"
                 style={{
-                  objectPosition: selectedMember.imagePosition || "center",
+                  objectPosition: selectedMember.imagePosition || "center top",
                 }}
               />
             </div>
@@ -483,13 +484,13 @@ const TeamPage: React.FC = () => {
                 </div>
 
                 <div className="pt-8 border-t border-gray-100 dark:border-white/10">
-                  <a
-                    href="mailto:conradnxavi@gmail.com"
+                  <Link
+                    to="/contact"
                     className="inline-flex items-center justify-center gap-3 bg-navy dark:bg-gold text-white dark:text-navy px-10 py-4 uppercase tracking-[0.2em] text-xs font-bold hover:transform hover:-translate-y-1 transition-all shadow-xl"
                   >
                     <Mail size={18} />
                     Send Message
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

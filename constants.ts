@@ -92,6 +92,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     experience: "7+ Years",
     specialization: "Family Law & ADR",
     image: "/images/okpor_edited_1773569258348.png",
+    imagePosition: "center 10%",
     education: [
       "Olabisi Onabanjo University, Ago-Iwoye, Ogun State (LL.B)",
       "Nigerian Law School (BL)",
@@ -118,6 +119,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     experience: "15+ Years",
     specialization: "Corporate Law & Litigation",
     image: "/images/okpor_1.jpg",
+    imagePosition: "center 16%",
     education: [
       "Olabisi Onabanjo University, Ago-Iwoye, Ogun State (LL.B)",
       "Nigerian Law School (BL)",

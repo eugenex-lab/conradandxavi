@@ -47,7 +47,7 @@ const App: React.FC = () => {
         className={`min-h-screen flex flex-col ${isDarkMode ? "dark:bg-navy-dark dark:text-white" : "bg-white text-navy"}`}
       >
         <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-        <main className="flex-grow pt-[80px]">
+        <main className="flex-grow pt-[80px] ">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
