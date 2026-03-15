@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { TEAM_MEMBERS } from "../constants";
 import {
   Linkedin,
@@ -261,38 +262,66 @@ const TeamPage: React.FC = () => {
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
-                    style={{ objectPosition: member.imagePosition || "center top" }}
+                    style={{
+                      objectPosition: member.imagePosition || "center top",
+                    }}
                   />
 
                   {/* Premium Royal Blue Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-navy/90 via-navy/70 to-navy/30 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-center text-white px-8 text-center pointer-events-none">
-                    <div className="transform translate-y-12 group-hover:translate-y-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col items-center">
-                      <div className="text-gold font-bold text-[9px] uppercase tracking-[0.4em] mb-4">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-navy/90 via-navy/70 to-navy/30 backdrop-blur-[3px] opacity-0 group-hover:opacity-100 transition-all duration-700 flex flex-col items-center justify-end pb-16 text-white px-8 text-center pointer-events-none">
+                    <div className="transform translate-y-8 group-hover:translate-y-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] flex flex-col items-center w-full">
+                      <div className="text-white/60 font-bold text-[8px] uppercase tracking-[0.4em] mb-4">
                         {member.position}
                       </div>
-
-                      <div className="flex items-center justify-center gap-3 bg-white/10 backdrop-blur-xl border border-white/20 pl-8 pr-6 py-3.5 rounded-full shadow-2xl group/btn transition-all duration-300 hover:border-gold/50">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">
-                          View Profile
-                        </span>
-                        <div className="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-navy shadow-lg">
-                          <ArrowUpRight size={14} />
-                        </div>
-                      </div>
-
-                      {/* Explicit Click Indicator */}
-                      <div className="mt-8 flex flex-col items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-1000 delay-500">
+                      {/* Bouncing Animation - Restored */}
+                      <div className="mb-4 flex flex-col items-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-1000 delay-300">
                         <div className="flex items-center gap-3">
-                          <div className="w-6 h-[1px] bg-gold/30"></div>
+                          <div className="w-6 h-[1px] bg-gold/50"></div>
                           <span className="text-[8px] text-gold uppercase tracking-[0.4em] font-bold">
                             Click to Open
                           </span>
-                          <div className="w-6 h-[1px] bg-gold/30"></div>
+                          <div className="w-6 h-[1px] bg-gold/50"></div>
                         </div>
                         <div className="animate-bounce mt-1">
-                          <ChevronDown size={16} className="text-gold" />
+                          <ChevronDown size={14} className="text-gold" />
                         </div>
                       </div>
+
+                      {/* Primary CTA - Compact One-Line with Framer Motion Animation */}
+                      <motion.div 
+                        whileHover="hover"
+                        whileTap={{ scale: 0.98 }}
+                        variants={{
+                          hover: { scale: 1.05 }
+                        }}
+                        className="flex items-center justify-center gap-3 bg-gold text-navy pl-7 pr-5 py-3 rounded-full shadow-[0_15px_30px_rgba(174,152,98,0.4)] cursor-pointer pointer-events-auto"
+                      >
+                        <span className="text-[10px] font-bold uppercase tracking-[0.3em] whitespace-nowrap">
+                          View Profile
+                        </span>
+                        <motion.div 
+                          className="w-7 h-7 rounded-full bg-navy flex items-center justify-center text-gold shadow-lg shrink-0"
+                          initial={false}
+                        >
+                          <motion.div
+                            variants={{
+                              hover: { 
+                                rotate: 45,
+                                x: 2,
+                                y: -2,
+                                scale: 1.1
+                              }
+                            }}
+                            transition={{ 
+                              type: "spring", 
+                              stiffness: 400, 
+                              damping: 25 
+                            }}
+                          >
+                            <ArrowUpRight size={12} />
+                          </motion.div>
+                        </motion.div>
+                      </motion.div>
                     </div>
                   </div>
                 </div>
