@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
             : "py-4 bg-transparent"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 pr-3">
           <div className="flex justify-between items-center">
             {/* Logo area */}
             <Link to="/" className="flex items-center group z-50 relative">
@@ -133,8 +133,11 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
             <div className="md:hidden flex items-center space-x-5 z-50 relative">
               {/* Current Page Indicator */}
               <div className="flex flex-col items-end mr-2">
-                <span className={`text-[8px] font-black uppercase tracking-[0.25em] ${isOpen ? "text-gold" : isDarkMode ? "text-gold" : "text-gold"}`}>
-                  {navLinks.find((link) => link.path === location.pathname)?.name || "Home"}
+                <span
+                  className={`text-[8px] font-black uppercase tracking-[0.25em] ${isOpen ? "text-gold" : isDarkMode ? "text-gold" : "text-gold"}`}
+                >
+                  {navLinks.find((link) => link.path === location.pathname)
+                    ?.name || "Home"}
                 </span>
                 <div className="h-[1px] w-4 bg-gold/30 mt-0.5"></div>
               </div>
