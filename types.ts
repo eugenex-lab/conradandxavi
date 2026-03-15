@@ -15,6 +15,11 @@ export interface TeamMember {
   experience: string;
   specialization: string;
   image: string;
+  imagePosition?: string;
+  education?: string[];
+  practiceAreas?: string[];
+  profile?: string[];
+  memberships?: string[];
 }
 
 export interface Testimonial {

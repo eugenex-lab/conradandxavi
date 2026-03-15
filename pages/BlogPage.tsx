@@ -574,7 +574,7 @@ const BlogPage: React.FC = () => {
                       You're In.
                     </h4>
                     <p className="text-navy/80 text-xs font-medium">
-                      Expect your first briefing within 48 hours.
+                      Thanks for subscribing.
                     </p>
                   </div>
                 </motion.div>

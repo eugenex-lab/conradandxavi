@@ -29,7 +29,7 @@ const WhatsAppFAB: React.FC = () => {
             initial={{ opacity: 0, x: 20, scale: 0.8 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 20, scale: 0.8 }}
-            className="mr-5 bg-white dark:bg-navy-light p-5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative border border-gold/20 dark:border-gold/30 min-w-[220px] pointer-events-auto"
+            className="hidden md:block mr-5 bg-white dark:bg-navy-light p-5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.3)] relative border border-gold/20 dark:border-gold/30 min-w-[220px] pointer-events-auto"
           >
             {/* Premium Gold Pointer Triangle */}
             <div className="absolute right-[-8px] top-1/2 -translate-y-1/2 w-4 h-4 bg-white dark:bg-navy-light rotate-45 border-t border-r border-gold/20 dark:border-gold/30"></div>

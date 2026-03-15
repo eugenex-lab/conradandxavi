@@ -24,7 +24,10 @@ const ScrollToTop = () => {
 };
 
 const App: React.FC = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem("isDarkMode");
+    return savedMode ? JSON.parse(savedMode) : false;
+  });
 
   useEffect(() => {
     if (isDarkMode) {
@@ -32,9 +35,10 @@ const App: React.FC = () => {
     } else {
       document.documentElement.classList.remove("dark");
     }
+    localStorage.setItem("isDarkMode", JSON.stringify(isDarkMode));
   }, [isDarkMode]);
 
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+  const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
   return (
     <Router>

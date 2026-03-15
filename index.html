@@ -57,6 +57,9 @@
       .stagger-3 {
         animation-delay: 0.3s;
       }
+      .stagger-4 {
+        animation-delay: 0.4s;
+      }
 
       .image-mask {
         clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
@@ -109,6 +112,18 @@
           opacity: 1;
           transform: translateY(0);
         }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .animate-reveal-up {
+        opacity: 0;
+        transform: translateY(40px);
+        animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
       .animate-scroll-left {
         display: flex;
@@ -224,6 +239,35 @@
         pointer-events: none;
         opacity: 0.04;
         background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+      }
+      @keyframes shine {
+        0% { transform: translateX(-150%) skewX(-25deg); }
+        100% { transform: translateX(250%) skewX(-25deg); }
+      }
+      .animate-shine {
+        animation: shine 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(30px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      .animate-slide-in-right {
+        animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      
+      /* Pure Elegance Scrollbar */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(174, 152, 98, 0.2);
+        border-radius: 20px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(174, 152, 98, 0.5);
       }
     </style>
     <script>
