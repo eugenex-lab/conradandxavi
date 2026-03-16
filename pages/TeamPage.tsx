@@ -253,13 +253,25 @@ const TeamPage: React.FC = () => {
           {/* Partner Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-20 gap-x-12">
             {TEAM_MEMBERS.map((member, index) => (
-              <div
+              <motion.div
                 key={member.id}
-                className={`group cursor-pointer animate-reveal-up stagger-${(index % 4) + 1} p-2 md:p-0`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: (index % 4) * 0.15,
+                  ease: [0.22, 1, 0.36, 1] 
+                }}
+                className="group cursor-pointer p-2 md:p-0"
                 onClick={() => setSelectedMember(member)}
               >
-                <div className="relative mb-5 overflow-hidden rounded-t-full rounded-b-full aspect-[3/4] shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-1">
-                  <img
+                <div className="relative mb-5 overflow-hidden rounded-t-full rounded-b-full aspect-[3/4] shadow-lg group-hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-1 bg-navy/5">
+                  <motion.img
+                    initial={{ scale: 1.15, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
                     src={member.image}
                     alt={member.name}
                     className="w-full h-full object-cover transition-transform duration-[1.5s] ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-110"
@@ -356,147 +368,205 @@ const TeamPage: React.FC = () => {
                     <ArrowUpRight size={20} />
                   </button>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Team Member Modal */}
-      {selectedMember && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8">
-          <div
-            className="absolute inset-0 bg-navy/95 backdrop-blur-md animate-fade-in"
-            onClick={() => setSelectedMember(null)}
-          ></div>
-
-          <div className="relative bg-white dark:bg-navy-dark w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row animate-reveal-up max-h-[90vh]">
-            <button
+      {/* Team Member Modal */}
+      <AnimatePresence>
+        {selectedMember && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-navy/95 backdrop-blur-md"
               onClick={() => setSelectedMember(null)}
-              className="absolute top-4 right-4 z-[110] p-3 bg-white/20 hover:bg-white/30 dark:bg-white/10 dark:hover:bg-white/20 rounded-full transition-colors backdrop-blur-sm shadow-xl"
+            />
+
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ 
+                type: "spring", 
+                damping: 25, 
+                stiffness: 300,
+                mass: 0.8
+              }}
+              className="relative bg-white dark:bg-navy-dark w-full max-w-5xl rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
             >
-              <X size={24} className="text-black md:dark:text-white" />
-            </button>
+              <button
+                onClick={() => setSelectedMember(null)}
+                className="absolute top-4 right-4 z-[110] p-3 bg-white/20 hover:bg-white/30 dark:bg-white/10 dark:hover:bg-white/20 rounded-full transition-colors backdrop-blur-sm shadow-xl"
+              >
+                <X size={24} className="text-black md:dark:text-white" />
+              </button>
 
-            <div className="w-full md:w-2/5 h-80 md:h-auto overflow-hidden shrink-0">
-              <img
-                src={selectedMember.image}
-                alt={selectedMember.name}
-                className="w-full h-full object-cover"
-                style={{
-                  objectPosition: selectedMember.imagePosition || "center top",
-                }}
-              />
-            </div>
-
-            <div className="w-full md:w-3/5 px-6 md:px-16 pb-6 md:pb-16 overflow-y-auto bg-white dark:bg-navy-dark flex flex-col relative">
-              <div className="sticky top-0 z-20 bg-white dark:bg-navy-dark pt-8 md:pt-16 pb-6 border-b border-gray-100 dark:border-white/5 mb-8 md:mb-10">
-                <div className="text-gold font-bold text-[10px] md:text-xs uppercase tracking-[0.3em] mb-4">
-                  {selectedMember.position}
-                </div>
-                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-4 dark:text-white leading-tight">
-                  {selectedMember.name}
-                </h2>
-                <div className="h-1 w-20 bg-gold"></div>
+              <div className="w-full md:w-2/5 h-80 md:h-auto overflow-hidden shrink-0">
+                <motion.img
+                  initial={{ scale: 1.1, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  src={selectedMember.image}
+                  alt={selectedMember.name}
+                  className="w-full h-full object-cover"
+                  style={{
+                    objectPosition: selectedMember.imagePosition || "center top",
+                  }}
+                />
               </div>
 
-              <div className="space-y-6 md:space-y-8 flex-grow">
-                <div>
-                  <h4 className="text-sm font-bold uppercase tracking-widest text-gold mb-3">
-                    Professional Bio
-                  </h4>
-                  <div className="space-y-4">
-                    {selectedMember.profile?.map((paragraph, idx) => (
-                      <p
-                        key={idx}
-                        className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg"
+              <div className="w-full md:w-3/5 px-6 md:px-16 pb-6 md:pb-16 overflow-y-auto bg-white dark:bg-navy-dark flex flex-col relative">
+                <div className="sticky top-0 z-20 bg-white dark:bg-navy-dark pt-8 md:pt-16 pb-6 border-b border-gray-100 dark:border-white/5 mb-8 md:mb-10">
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="text-gold font-bold text-[10px] md:text-xs uppercase tracking-[0.3em] mb-4"
+                  >
+                    {selectedMember.position}
+                  </motion.div>
+                  <motion.h2 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-3xl md:text-5xl font-serif font-bold mb-4 dark:text-white leading-tight"
+                  >
+                    {selectedMember.name}
+                  </motion.h2>
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: 80 }}
+                    transition={{ delay: 0.5, duration: 0.6 }}
+                    className="h-1 bg-gold"
+                  />
+                </div>
+
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="space-y-6 md:space-y-8 flex-grow"
+                >
+                  <div>
+                    <h4 className="text-sm font-bold uppercase tracking-widest text-gold mb-3">
+                      Professional Bio
+                    </h4>
+                    <div className="space-y-4">
+                      {selectedMember.profile?.map((paragraph, idx) => (
+                        <p
+                          key={idx}
+                          className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg"
+                        >
+                          {paragraph}
+                        </p>
+                      )) || (
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+                          {selectedMember.name} is a distinguished legal
+                          practitioner specializing in{" "}
+                          {selectedMember.specialization}.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Practice Areas */}
+                    {selectedMember.practiceAreas && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.7 }}
                       >
-                        {paragraph}
-                      </p>
-                    )) || (
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
-                        {selectedMember.name} is a distinguished legal
-                        practitioner specializing in{" "}
-                        {selectedMember.specialization}.
-                      </p>
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-gold mb-4 border-b border-gold/20 pb-2">
+                          Practice Areas
+                        </h4>
+                        <ul className="space-y-2">
+                          {selectedMember.practiceAreas.map((area, idx) => (
+                            <li
+                              key={idx}
+                              className="flex items-center gap-2 text-gray-700 dark:text-gray-300"
+                            >
+                              <div className="w-1.5 h-1.5 rounded-full bg-gold"></div>
+                              <span className="text-base">{area}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+
+                    {/* Education */}
+                    {selectedMember.education && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.8 }}
+                      >
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-gold mb-4 border-b border-gold/20 pb-2">
+                          Education & Qualifications
+                        </h4>
+                        <ul className="space-y-3">
+                          {selectedMember.education.map((edu, idx) => (
+                            <li
+                              key={idx}
+                              className="text-gray-700 dark:text-gray-300"
+                            >
+                              <p className="text-base leading-snug">{edu}</p>
+                            </li>
+                          ))}
+                        </ul>
+                      </motion.div>
+                    )}
+
+                    {/* Memberships */}
+                    {selectedMember.memberships && (
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.9 }}
+                        className="md:col-span-2"
+                      >
+                        <h4 className="text-sm font-bold uppercase tracking-widest text-gold mb-4 border-b border-gold/20 pb-2">
+                          Memberships & Certifications
+                        </h4>
+                        <div className="flex flex-wrap gap-3">
+                          {selectedMember.memberships.map((membership, idx) => (
+                            <span
+                              key={idx}
+                              className="px-4 py-2 bg-gray-100 dark:bg-white/5 rounded-lg text-sm text-gray-700 dark:text-gray-300"
+                            >
+                              {membership}
+                            </span>
+                          ))}
+                        </div>
+                      </motion.div>
                     )}
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Practice Areas */}
-                  {selectedMember.practiceAreas && (
-                    <div>
-                      <h4 className="text-sm font-bold uppercase tracking-widest text-gold mb-4 border-b border-gold/20 pb-2">
-                        Practice Areas
-                      </h4>
-                      <ul className="space-y-2">
-                        {selectedMember.practiceAreas.map((area, idx) => (
-                          <li
-                            key={idx}
-                            className="flex items-center gap-2 text-gray-700 dark:text-gray-300"
-                          >
-                            <div className="w-1.5 h-1.5 rounded-full bg-gold"></div>
-                            <span className="text-base">{area}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Education */}
-                  {selectedMember.education && (
-                    <div>
-                      <h4 className="text-sm font-bold uppercase tracking-widest text-gold mb-4 border-b border-gold/20 pb-2">
-                        Education & Qualifications
-                      </h4>
-                      <ul className="space-y-3">
-                        {selectedMember.education.map((edu, idx) => (
-                          <li
-                            key={idx}
-                            className="text-gray-700 dark:text-gray-300"
-                          >
-                            <p className="text-base leading-snug">{edu}</p>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {/* Memberships */}
-                  {selectedMember.memberships && (
-                    <div className="md:col-span-2">
-                      <h4 className="text-sm font-bold uppercase tracking-widest text-gold mb-4 border-b border-gold/20 pb-2">
-                        Memberships & Certifications
-                      </h4>
-                      <div className="flex flex-wrap gap-3">
-                        {selectedMember.memberships.map((membership, idx) => (
-                          <span
-                            key={idx}
-                            className="px-4 py-2 bg-gray-100 dark:bg-white/5 rounded-lg text-sm text-gray-700 dark:text-gray-300"
-                          >
-                            {membership}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <div className="pt-8 border-t border-gray-100 dark:border-white/10">
-                  <Link
-                    to="/contact"
-                    className="inline-flex items-center justify-center gap-3 bg-navy dark:bg-gold text-white dark:text-navy px-10 py-4 uppercase tracking-[0.2em] text-xs font-bold hover:transform hover:-translate-y-1 transition-all shadow-xl"
-                  >
-                    <Mail size={18} />
-                    Send Message
-                  </Link>
-                </div>
+                  <div className="pt-8 border-t border-gray-100 dark:border-white/10">
+                    <Link
+                      to="/contact"
+                      className="inline-flex items-center justify-center gap-3 bg-navy dark:bg-gold text-white dark:text-navy px-10 py-4 uppercase tracking-[0.2em] text-xs font-bold hover:transform hover:-translate-y-1 transition-all shadow-xl"
+                    >
+                      <Mail size={18} />
+                      Send Message
+                    </Link>
+                  </div>
+                </motion.div>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Join the Team */}
       <section className="py-20 md:py-32 bg-beige dark:bg-navy-dark/50 relative overflow-hidden">

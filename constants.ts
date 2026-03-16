@@ -4,7 +4,7 @@ export const FIRM_INFO = {
   name: "CONRAD & XAVI LP",
   tagline: "Trusted Legal Expertise. Strategic Representation. Proven Results.",
   established: 2014,
-  phones: ["08038648444", "08032153088"],
+  phones: ["08038637444","08032153088" ],
   email: "conradnxavi@gmail.com",
   addresses: [
     "11, Folgore Close, Adiva Plainfields Estate, Ibeju Lekki, Lagos",
@@ -103,13 +103,20 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Administration of Estates",
       "Wills and Trust",
       "Company Secretarial Services",
+      "Finance",
+      "Financial Technology",
+      "Trusts",
+      "Family Office",
     ],
     profile: [
       "Christopher Okpo is a partner at the firm, WhiteHouse Chambers. He has gained a wealth of experience having worked with several top law firms before joining the WhiteHouse Chambers team.",
       "Christopher is a very active and dedicated team member. He specializes in Wealth Management, Administration of Estates, Wills and Trust amogst other practice areas.",
       "He is also a member of the prestigious Nigerian Bar Association.",
     ],
-    memberships: ["Nigerian Bar Association (Member)"],
+    memberships: [
+      "Nigerian Bar Association (Member)",
+      "Securities and Exchange Commission (Nigeria) - Trustee Sponsored Individual",
+    ],
   },
   {
     id: "2",
@@ -121,7 +128,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
     image: "/images/okpor_1.jpg",
     imagePosition: "center 16%",
     education: [
-      "Olabisi Onabanjo University, Ago-Iwoye, Ogun State (LL.B)",
+      "Igbinedion University, Okada, Edo State (LL.B)",
       "Nigerian Law School (BL)",
     ],
     practiceAreas: ["Operations", "Real Estate", "Family Law"],
@@ -129,7 +136,7 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Funke Adedamola Okpo is the Managing Partner at the firm. She is a dedicated legal strategist with extensive experience across diverse practice areas.",
       "Funke specializes in Operations, Real Estate, and Family Law, bringing a meticulous approach to every mandate she handles.",
       "She is an active member of the Nigerian Bar Association.",
-    ],
+    ],  
     memberships: ["Nigerian Bar Association (Member)"],
   },
   {
@@ -155,7 +162,6 @@ export const TEAM_MEMBERS: TeamMember[] = [
       "Venture Capital & Principal Investments",
       "Private Equity & Investment Structuring",
       "Real Estate Transactions",
-      "Energy & Infrastructure",
     ],
     profile: [
       "Yemi is a Partner at Conrad & Xavi, where he advises corporates, financial institutions, founders, and investors on complex corporate and commercial transactions, governance structuring, and regulatory strategy. His practice spans multi-jurisdictional deal execution, transaction structuring, and high-level board advisory across regulated and growth sectors.",

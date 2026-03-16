@@ -350,7 +350,7 @@ const ContactPage: React.FC = () => {
             <div className="space-y-10">
               {/* WhatsApp Secure Line */}
               <a
-                href="https://api.whatsapp.com/send/?phone=2348032153088&text&type=phone_number&app_absent=0"
+                href="https://api.whatsapp.com/send/?phone=2348038637444&text&type=phone_number&app_absent=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-8 group"
@@ -363,10 +363,10 @@ const ContactPage: React.FC = () => {
                     <h4 className="text-[10px] font-bold uppercase tracking-widest text-navy/60 dark:text-gray-400">
                       WhatsApp Secure Line
                     </h4>
-                    <CopyButton text="08032153088" />
+                    <CopyButton text="08038637444" />
                   </div>
                   <p className="text-2xl font-medium text-navy dark:text-white group-hover:text-gold transition-colors">
-                    08032153088
+                    08038637444
                   </p>
                 </div>
               </a>

@@ -99,32 +99,41 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode = false }) => {
             <ul className="space-y-6 text-sm">
               {/* WhatsApp Secure Line */}
               <li className="flex flex-col space-y-1">
-                <span className="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">WhatsApp Secure Line</span>
+                <span className="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">
+                  WhatsApp Secure Line
+                </span>
                 <div className="flex items-center space-x-3 text-gray-400">
                   <MessageCircle size={18} className="text-gold shrink-0" />
-                  <a 
-                    href="https://api.whatsapp.com/send/?phone=2348032153088&text&type=phone_number&app_absent=0"
+                  <a
+                    href="https://api.whatsapp.com/send/?phone=2348038637444&text&type=phone_number&app_absent=0"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-gold transition-colors font-medium"
                   >
-                    08032153088
+                    08038637444
                   </a>
                 </div>
               </li>
 
               {/* Call Line */}
               <li className="flex flex-col space-y-1">
-                <span className="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">Direct Call Line</span>
+                <span className="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">
+                  Direct Call Line
+                </span>
                 <div className="flex items-center space-x-3 text-gray-400">
                   <Phone size={18} className="text-gold shrink-0" />
                   <div className="flex flex-wrap gap-x-2">
                     {FIRM_INFO.phones.map((phone, i) => (
                       <React.Fragment key={phone}>
-                        <a href={`tel:${phone}`} className="hover:text-gold transition-colors font-medium">
+                        <a
+                          href={`tel:${phone}`}
+                          className="hover:text-gold transition-colors font-medium"
+                        >
                           {phone}
                         </a>
-                        {i < FIRM_INFO.phones.length - 1 && <span className="opacity-30">|</span>}
+                        {i < FIRM_INFO.phones.length - 1 && (
+                          <span className="opacity-30">|</span>
+                        )}
                       </React.Fragment>
                     ))}
                   </div>
@@ -133,7 +142,9 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode = false }) => {
 
               {/* Confidential Email */}
               <li className="flex flex-col space-y-1">
-                <span className="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">Confidential Email</span>
+                <span className="text-[10px] text-gold uppercase tracking-[0.2em] font-bold">
+                  Confidential Email
+                </span>
                 <div className="flex items-center space-x-3 text-gray-400">
                   <Mail size={18} className="text-gold shrink-0" />
                   <a
@@ -147,7 +158,9 @@ const Footer: React.FC<FooterProps> = ({ isDarkMode = false }) => {
 
               {/* HQ Addresses */}
               <li className="pt-2">
-                <span className="text-[10px] text-gold uppercase tracking-[0.2em] font-bold block mb-3">Office Locations</span>
+                <span className="text-[10px] text-gold uppercase tracking-[0.2em] font-bold block mb-3">
+                  Office Locations
+                </span>
                 <div className="space-y-4">
                   {FIRM_INFO.addresses.map((addr, idx) => (
                     <div
