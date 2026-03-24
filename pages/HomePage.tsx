@@ -19,6 +19,36 @@ import {
 } from "framer-motion";
 import { FIRM_INFO, PRACTICE_AREAS } from "../constants";
 
+// Detect mobile to use simpler, faster animations for usability
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return isMobile;
+};
+
+// Mobile: instant fade-in. Desktop: slide up.
+const mobileVariant = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.3, ease: "easeOut" } },
+};
+const desktopVariant = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } },
+};
+const mobileStaggerVariant = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.05 } },
+};
+const desktopStaggerVariant = {
+  visible: { transition: { staggerChildren: 0.15 } },
+};
+
 const HeroMediaSlider: React.FC = () => {
   const images = [
     "https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=1200",
@@ -506,16 +536,156 @@ const ThoughtLeadershipSection = () => {
   );
 };
 
+const ServicesSection: React.FC = () => {
+  const isMobile = useIsMobile();
+  const variant = isMobile ? mobileVariant : desktopVariant;
+  const staggerVariant = isMobile ? mobileStaggerVariant : desktopStaggerVariant;
+
+  return (
+    <section className="relative py-32 bg-transparent border-t border-navy/5 dark:border-white/5 overflow-hidden px-2">
+      <div className="absolute inset-0 z-0">
+        <img
+          src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=2000"
+          alt="Courtroom"
+          className="w-full h-full object-cover opacity-[0.15] contrast-125 brightness-75 sepia-[0.3] mix-blend-multiply dark:mix-blend-screen transition-all duration-1000"
+        />
+        <div className="absolute inset-0 bg-gradient-to-tr from-navy/20 via-gold/5 to-transparent"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative z-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isMobile ? "-20px" : "-100px" }}
+          variants={variant}
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-8"
+        >
+          <div className="max-w-2xl">
+            <span className="text-gold font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">
+              Our Expertise
+            </span>
+            <h2 className="text-5xl md:text-7xl font-serif font-medium dark:text-white leading-tight">
+              Architecting <br />{" "}
+              <span className="italic text-gold">Certainty</span> in Chaos.
+            </h2>
+          </div>
+          <p className="text-navy/50 dark:text-gray-400 max-w-sm mb-2 text-sm uppercase tracking-widest font-bold">
+            Providing rigorous legal analysis and strategic counsel across
+            specialized sectors.
+          </p>
+        </motion.div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: isMobile ? "-20px" : "-50px" }}
+          variants={staggerVariant}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-navy/10 dark:border-white/10 rounded-2xl overflow-hidden bg-white/30 dark:bg-navy/30 backdrop-blur-xl shadow-2xl"
+        >
+          {PRACTICE_AREAS.slice(0, 3).map((area, idx) => (
+            <motion.div
+              variants={variant}
+              key={area.id}
+              viewport={{ once: true }}
+              className={`relative p-10 md:p-14 group transition-all duration-700 hover:bg-white/50 dark:hover:bg-white/5 border-navy/5 dark:border-white/5 cursor-pointer ${
+                idx === 0 ? "lg:border-r" : idx === 1 ? "lg:border-r" : ""
+              } ${idx < 2 ? "border-b lg:border-b-0" : "border-b md:border-b-0"}`}
+            >
+              <div className="flex items-center space-x-4 mb-12">
+                <span className="text-3xl font-serif italic text-gold/30 group-hover:text-gold transition-colors duration-500">
+                  {idx === 0 ? "" : `0${idx}`}
+                </span>
+                <div className="h-[1px] w-12 bg-gold/20 group-hover:w-20 group-hover:bg-gold transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]"></div>
+              </div>
+
+              <div className="relative z-10 transition-transform duration-700 ease-out group-hover:-translate-y-2">
+                <h3 className="text-3xl md:text-4xl font-serif font-medium mb-8 dark:text-white leading-tight">
+                  {area.title}
+                </h3>
+                <p className="text-navy/60 dark:text-gray-400 mb-12 font-light leading-relaxed text-lg">
+                  {area.description}
+                </p>
+
+                <Link
+                  to="/practice"
+                  className="inline-flex items-center group/btn"
+                >
+                  <span className="text-gold font-bold text-[10px] uppercase tracking-[0.3em] relative overflow-hidden pb-1">
+                    <span className="relative z-10">Explore Excellence</span>
+                    <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gold scale-x-0 group-hover/btn:scale-x-100 transition-transform origin-left duration-500 ease-out"></span>
+                  </span>
+                  <div className="ml-4 w-10 h-10 rounded-full border border-gold/10 flex items-center justify-center group-hover/btn:bg-gold group-hover/btn:text-navy group-active/btn:scale-95 transition-all duration-500">
+                    <MoveUpRight
+                      size={16}
+                      className="group-hover/btn:translate-x-[1px] group-hover/btn:-translate-y-[1px] transition-transform"
+                    />
+                  </div>
+                </Link>
+              </div>
+
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-gold/5 rounded-tl-full translate-x-16 translate-y-16 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-1000 ease-out pointer-events-none"></div>
+            </motion.div>
+          ))}
+
+          <motion.div
+            variants={
+              isMobile
+                ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.5 } } }
+                : { hidden: { opacity: 0, filter: "blur(10px)" }, visible: { opacity: 1, filter: "blur(0px)", transition: { duration: 1, ease: "easeOut" } } }
+            }
+            className="md:col-span-2 lg:col-span-3 bg-navy text-white p-12 md:p-20 relative overflow-hidden group"
+          >
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000')] opacity-10 grayscale group-hover:scale-110 transition-transform duration-[3s] ease-out"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-transparent"></div>
+
+            <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
+              <div className="max-w-2xl text-center lg:text-left">
+                <span className="text-gold font-bold text-[10px] uppercase tracking-[0.5em] mb-6 block">
+                  Strategic Collaboration
+                </span>
+                <h3 className="text-4xl md:text-6xl font-serif font-medium mb-8 leading-tight">
+                  Seeking Global{" "}
+                  <span className="italic text-gold">Partners?</span>
+                </h3>
+                <p className="text-white/60 text-lg font-light leading-relaxed mb-0">
+                  Our desk is open for strategic international collaborations,
+                  cross-border advisory, and institutional legal support.
+                </p>
+              </div>
+
+              <Link
+                to="/contact"
+                className="bg-gold text-navy px-12 py-8 text-[10px] font-bold uppercase tracking-[0.4em] overflow-hidden relative shadow-[0_4px_30px_rgba(212,175,55,0.15)] hover:shadow-[0_4px_40px_rgba(212,175,55,0.3)] transition-all duration-500 flex items-center space-x-6 shrink-0 group/cta hover:-translate-y-1 active:translate-y-0"
+              >
+                <div className="absolute inset-0 bg-white translate-y-full group-hover/cta:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] z-0"></div>
+                <span className="relative z-10 group-hover/cta:text-navy transition-colors">
+                  Inquire Locally
+                </span>
+                <ArrowRight
+                  size={18}
+                  className="relative z-10 group-hover/cta:translate-x-1 transition-transform"
+                />
+              </Link>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
 const HomePage: React.FC = () => {
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
 
   return (
-    <div className="relative overflow-hidden bg-beige/50 dark:bg-navy-dark ">
+    <div className="relative bg-beige/50 dark:bg-navy-dark ">
       <GlobalBackground />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col lg:flex-row items-stretch px-2">
+      <section className="relative min-h-screen flex flex-col lg:flex-row items-stretch px-2 overflow-hidden">
         <FullBackgroundSlider />
 
         {/* Left Content Column */}
@@ -653,145 +823,7 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Services Highlights */}
-      <section className="relative py-32 bg-transparent border-t border-navy/5 dark:border-white/5 overflow-hidden px-2">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&q=80&w=2000"
-            alt="Courtroom"
-            className="w-full h-full object-cover opacity-[0.15] contrast-125 brightness-75 sepia-[0.3] mix-blend-multiply dark:mix-blend-screen transition-all duration-1000"
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-navy/20 via-gold/5 to-transparent"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={transitionConfig}
-            className="flex flex-col lg:flex-row lg:items-end justify-between gap-8"
-          >
-            <div className="max-w-2xl">
-              <span className="text-gold font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">
-                Our Expertise
-              </span>
-              <h2 className="text-5xl md:text-7xl font-serif font-medium dark:text-white leading-tight">
-                Architecting <br />{" "}
-                <span className="italic text-gold">Certainty</span> in Chaos.
-              </h2>
-            </div>
-            <p className="text-navy/50 dark:text-gray-400 max-w-sm mb-2 text-sm uppercase tracking-widest font-bold">
-              Providing rigorous legal analysis and strategic counsel across
-              specialized sectors.
-            </p>
-          </motion.div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={{
-              visible: { transition: { staggerChildren: 0.15 } },
-            }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border border-navy/10 dark:border-white/10 rounded-2xl overflow-hidden bg-white/30 dark:bg-navy/30 backdrop-blur-xl shadow-2xl"
-          >
-            {PRACTICE_AREAS.slice(0, 3).map((area, idx) => (
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: transitionConfig },
-                }}
-                key={area.id}
-                viewport={{ once: true }}
-                className={`relative p-10 md:p-14 group transition-all duration-700 hover:bg-white/50 dark:hover:bg-white/5 border-navy/5 dark:border-white/5 cursor-pointer ${
-                  idx === 0 ? "lg:border-r" : idx === 1 ? "lg:border-r" : ""
-                } ${idx < 2 ? "border-b lg:border-b-0" : "border-b md:border-b-0"}`}
-              >
-                <div className="flex items-center space-x-4 mb-12">
-                  <span className="text-3xl font-serif italic text-gold/30 group-hover:text-gold transition-colors duration-500">
-                    {idx === 0 ? "" : `0${idx}`}
-                  </span>
-                  <div className="h-[1px] w-12 bg-gold/20 group-hover:w-20 group-hover:bg-gold transition-all duration-700 ease-[cubic-bezier(0.76,0,0.24,1)]"></div>
-                </div>
-
-                <div className="relative z-10 transition-transform duration-700 ease-out group-hover:-translate-y-2">
-                  <h3 className="text-3xl md:text-4xl font-serif font-medium mb-8 dark:text-white leading-tight">
-                    {area.title}
-                  </h3>
-                  <p className="text-navy/60 dark:text-gray-400 mb-12 font-light leading-relaxed text-lg">
-                    {area.description}
-                  </p>
-
-                  <Link
-                    to="/practice"
-                    className="inline-flex items-center group/btn"
-                  >
-                    <span className="text-gold font-bold text-[10px] uppercase tracking-[0.3em] relative overflow-hidden pb-1">
-                      <span className="relative z-10">Explore Excellence</span>
-                      <span className="absolute bottom-0 left-0 w-full h-[1px] bg-gold scale-x-0 group-hover/btn:scale-x-100 transition-transform origin-left duration-500 ease-out"></span>
-                    </span>
-                    <div className="ml-4 w-10 h-10 rounded-full border border-gold/10 flex items-center justify-center group-hover/btn:bg-gold group-hover/btn:text-navy group-active/btn:scale-95 transition-all duration-500">
-                      <MoveUpRight
-                        size={16}
-                        className="group-hover/btn:translate-x-[1px] group-hover/btn:-translate-y-[1px] transition-transform"
-                      />
-                    </div>
-                  </Link>
-                </div>
-
-                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gold/5 rounded-tl-full translate-x-16 translate-y-16 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-1000 ease-out pointer-events-none"></div>
-              </motion.div>
-            ))}
-
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, filter: "blur(10px)" },
-                visible: {
-                  opacity: 1,
-                  filter: "blur(0px)",
-                  transition: { duration: 1, ease: "easeOut" },
-                },
-              }}
-              className="md:col-span-2 lg:col-span-3 bg-navy text-white p-12 md:p-20 relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000')] opacity-10 grayscale group-hover:scale-110 transition-transform duration-[3s] ease-out"></div>
-              <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 to-transparent"></div>
-
-              <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-                <div className="max-w-2xl text-center lg:text-left">
-                  <span className="text-gold font-bold text-[10px] uppercase tracking-[0.5em] mb-6 block">
-                    Strategic Collaboration
-                  </span>
-                  <h3 className="text-4xl md:text-6xl font-serif font-medium mb-8 leading-tight">
-                    Seeking Global{" "}
-                    <span className="italic text-gold">Partners?</span>
-                  </h3>
-                  <p className="text-white/60 text-lg font-light leading-relaxed mb-0">
-                    Our desk is open for strategic international collaborations,
-                    cross-border advisory, and institutional legal support.
-                  </p>
-                </div>
-
-                <Link
-                  to="/contact"
-                  className="bg-gold text-navy px-12 py-8 text-[10px] font-bold uppercase tracking-[0.4em] overflow-hidden relative shadow-[0_4px_30px_rgba(212,175,55,0.15)] hover:shadow-[0_4px_40px_rgba(212,175,55,0.3)] transition-all duration-500 flex items-center space-x-6 shrink-0 group/cta hover:-translate-y-1 active:translate-y-0"
-                >
-                  <div className="absolute inset-0 bg-white translate-y-full group-hover/cta:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] z-0"></div>
-                  <span className="relative z-10 group-hover/cta:text-navy transition-colors">
-                    Inquire Locally
-                  </span>
-                  <ArrowRight
-                    size={18}
-                    className="relative z-10 group-hover/cta:translate-x-1 transition-transform"
-                  />
-                </Link>
-              </div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      <ServicesSection />
 
       {/* About Summary */}
       <section className="py-40 bg-transparent relative overflow-hidden px-2">
